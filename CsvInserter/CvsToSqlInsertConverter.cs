@@ -1,36 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace CsvInserter
 {
     public class CvsToSqlInsertConverter : ICvsToSqlInsertConverter
     {
+        private const string SingleSingleQuote = "'";
+        private const string DoubleSingleQuote = "''";
         private const string Delimeter = ",";
         private const string NullString = "null";
         private const char QuoteChar = '\'';
         private const string InsertHeaderFormat = "insert {0} ({1})";
         private const string InsertFormat = "{0} values ({1})\n";
+        private const string SetIdentityInsertFormatString = "set identity_insert {0} {1}\n";
+        private const string Off = "off";
+        private const string On = "on";
 
-        public CvsToSqlInsertConverter()
-        {
-        }
 
         public void Convert(CsvTable csvTable)
         {
-            csvTable.SqlWriter.Write(GenerateInserts(csvTable));
-            csvTable.SqlWriter.Close();
-
+            csvTable.Write(GenerateInserts(csvTable));
         }
-        private  string GenerateInserts(CsvTable csvTable)
+
+        private string GenerateInserts(CsvTable csvTable)
         {
-            var insertHeader = string.Format(InsertHeaderFormat, csvTable.Name, Join(csvTable.GetColumnNames(), Delimeter));
+            string insertHeader = string.Format(InsertHeaderFormat, csvTable.Name,
+                                                Join(csvTable.GetColumnNames(), Delimeter));
             var builder = new StringBuilder();
 
             TurnOnIdentityInsert(csvTable, builder);
             InsertRows(csvTable, builder, insertHeader);
             TurnOffIdentityInsert(csvTable, builder);
-            
+
             return builder.ToString();
         }
 
@@ -50,56 +51,60 @@ namespace CsvInserter
 
         private void TurnOffIdentityInsert(CsvTable csvTable, StringBuilder builder)
         {
+            SetIdentityInsert(csvTable, builder, Off);
+        }
+
+        private void SetIdentityInsert(CsvTable csvTable, StringBuilder builder, string value)
+        {
             if (csvTable.HasIdentity)
             {
-                builder.AppendFormat("set identity_insert {0} off\n", csvTable.Name);
+                builder.AppendFormat(SetIdentityInsertFormatString, csvTable.Name, value);
             }
         }
 
         private void TurnOnIdentityInsert(CsvTable csvTable, StringBuilder builder)
         {
-            if (csvTable.HasIdentity)
-            {
-                builder.AppendFormat("set identity_insert {0} on\n", csvTable.Name);
-            }
+            SetIdentityInsert(csvTable, builder, On);
         }
 
-        private  bool IsNullEmptyOrNullString(string thisvalue)
+
+        private bool IsNullEmptyOrNullString(string thisvalue)
         {
             return (string.IsNullOrEmpty(thisvalue) || thisvalue.Equals(NullString, StringComparison.OrdinalIgnoreCase));
         }
 
-        private  string Join(string[] values, string delimeter)
+        private string Join(string[] values, string delimeter)
         {
             return Join(values, delimeter, false, ' ');
         }
 
-        private  string Join(string[] values, string delimeter, bool addQuotes, char quoteChar)
+        private string Join(string[] values, string delimeter, bool addQuotes, char quoteChar)
         {
-            var JoinedValues = "";
+            var joinedValues = "";
             var delimeterIfNotFirstValue = "";
-            foreach (var value in values)
+            foreach (string value in values)
             {
-                var escapedString = value.Replace("'", "''");
+                var escapedString = value.Replace(SingleSingleQuote, DoubleSingleQuote);
                 if (addQuotes)
                 {
-                    JoinedValues = JoinedValues + delimeterIfNotFirstValue + (IsNullEmptyOrNullString(value) ? NullString : (quoteChar + escapedString + quoteChar));
+                    joinedValues = joinedValues + delimeterIfNotFirstValue +
+                                   (IsNullEmptyOrNullString(value)
+                                        ? NullString
+                                        : (quoteChar + escapedString + quoteChar));
                 }
                 else
                 {
-                    JoinedValues = JoinedValues + delimeterIfNotFirstValue + (string.IsNullOrEmpty(value) ? NullString : escapedString);
+                    joinedValues = joinedValues + delimeterIfNotFirstValue +
+                                   (string.IsNullOrEmpty(value) ? NullString : escapedString);
                 }
                 delimeterIfNotFirstValue = delimeter;
             }
-            return JoinedValues;
+            return joinedValues;
         }
 
-        private  string JoinValues(string[] values)
+        private string JoinValues(string[] values)
         {
             return Join(values, Delimeter, true, QuoteChar);
         }
-
-
-
     }
 }

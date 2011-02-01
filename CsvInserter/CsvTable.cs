@@ -4,7 +4,17 @@ using LumenWorks.Framework.IO.Csv;
 
 namespace CsvInserter
 {
-    public class CsvTable : IDisposable
+    public interface ICsvTable
+    {
+        string Name { get; }
+        bool HasIdentity { get; }
+        string[] GetColumnNames();
+        bool ReadNextRow();
+        string [] GetValues();
+        void Write(string outputString);
+    }
+
+    public class CsvTable : IDisposable, ICsvTable
     {
         private readonly CsvReader _csvTextReader;
         private readonly TextWriter _sqlWriter;
@@ -29,15 +39,6 @@ namespace CsvInserter
             get { return _hasIdentity; }
         }
 
-        public CsvReader CsvTextReader
-        {
-            get { return _csvTextReader; }
-        }
-
-        public TextWriter SqlWriter
-        {
-            get { return _sqlWriter; }
-        }
 
         public string[] GetColumnNames()
         {
@@ -62,8 +63,12 @@ namespace CsvInserter
         public void Dispose()
         {
             _sqlWriter.Close();
-            _sqlWriter.Dispose();
             _csvTextReader.Dispose();
+        }
+
+        public void Write(string outputString)
+        {
+            _sqlWriter.Write(outputString);
         }
     }
 }

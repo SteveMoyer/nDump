@@ -16,9 +16,9 @@
 
         public void Process()
         {
-            foreach (string file in _files)
+            foreach (var file in _files)
             {
-                using (CsvTable table = _csvTableFactory.CreateCsvTable(file))
+                using (var table = _csvTableFactory.CreateCsvTable(file))
                 {
                     _cvsToSqlInsertConverter.Convert(table);
                 }
