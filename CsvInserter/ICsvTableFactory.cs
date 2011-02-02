@@ -7,7 +7,7 @@ namespace CsvInserter
 {
     public interface ICsvTableFactory
     {
-        CsvTable CreateCsvTable(string file);
+        ICsvTable CreateCsvTable(string file);
     }
 
     internal class CsvTableFactory : ICsvTableFactory
@@ -21,7 +21,7 @@ namespace CsvInserter
             _tablesWithoutIdentities = tablesWithoutIdentities;
         }
 
-        public CsvTable CreateCsvTable(string file)
+        public ICsvTable CreateCsvTable(string file)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
             var writer = new StreamWriter(File.OpenWrite(_outputPath + @"\" + fileNameWithoutExtension + ".sql"));

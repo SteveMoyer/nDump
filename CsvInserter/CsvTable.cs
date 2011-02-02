@@ -4,7 +4,7 @@ using LumenWorks.Framework.IO.Csv;
 
 namespace CsvInserter
 {
-    public interface ICsvTable
+    public interface ICsvTable : IDisposable
     {
         string Name { get; }
         bool HasIdentity { get; }

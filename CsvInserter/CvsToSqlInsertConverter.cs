@@ -17,12 +17,12 @@ namespace CsvInserter
         private const string On = "on";
 
 
-        public void Convert(CsvTable csvTable)
+        public void Convert(ICsvTable csvTable)
         {
             csvTable.Write(GenerateInserts(csvTable));
         }
 
-        private string GenerateInserts(CsvTable csvTable)
+        private string GenerateInserts(ICsvTable csvTable)
         {
             string insertHeader = string.Format(InsertHeaderFormat, csvTable.Name,
                                                 Join(csvTable.GetColumnNames(), Delimeter));
@@ -35,7 +35,7 @@ namespace CsvInserter
             return builder.ToString();
         }
 
-        private void InsertRows(CsvTable csvTable, StringBuilder builder, string insertHeader)
+        private void InsertRows(ICsvTable csvTable, StringBuilder builder, string insertHeader)
         {
             while (csvTable.ReadNextRow())
             {
@@ -43,18 +43,18 @@ namespace CsvInserter
             }
         }
 
-        private void InsertRow(CsvTable csvTable, StringBuilder builder, string insertHeader)
+        private void InsertRow(ICsvTable csvTable, StringBuilder builder, string insertHeader)
         {
             string insertValues = JoinValues(csvTable.GetValues());
             builder.AppendFormat(InsertFormat, insertHeader, insertValues);
         }
 
-        private void TurnOffIdentityInsert(CsvTable csvTable, StringBuilder builder)
+        private void TurnOffIdentityInsert(ICsvTable csvTable, StringBuilder builder)
         {
             SetIdentityInsert(csvTable, builder, Off);
         }
 
-        private void SetIdentityInsert(CsvTable csvTable, StringBuilder builder, string value)
+        private void SetIdentityInsert(ICsvTable csvTable, StringBuilder builder, string value)
         {
             if (csvTable.HasIdentity)
             {
@@ -62,7 +62,7 @@ namespace CsvInserter
             }
         }
 
-        private void TurnOnIdentityInsert(CsvTable csvTable, StringBuilder builder)
+        private void TurnOnIdentityInsert(ICsvTable csvTable, StringBuilder builder)
         {
             SetIdentityInsert(csvTable, builder, On);
         }

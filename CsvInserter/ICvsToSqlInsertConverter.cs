@@ -2,6 +2,6 @@
 {
     public interface ICvsToSqlInsertConverter
     {
-        void Convert(CsvTable csvTable);
+        void Convert(ICsvTable csvTable);
     }
 }
