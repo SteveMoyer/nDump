@@ -55,6 +55,7 @@
     <Compile Include="CsvFileProcessor.cs" />
     <Compile Include="CsvTable.cs" />
     <Compile Include="CvsToSqlInsertConverter.cs" />
+    <Compile Include="EscapingStrategy.cs" />
     <Compile Include="ICsvProcessor.cs" />
     <Compile Include="ICsvTableFactory.cs" />
     <Compile Include="ICvsToSqlInsertConverter.cs" />
