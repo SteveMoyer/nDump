@@ -24,8 +24,8 @@ namespace CsvInserter
         public ICsvTable CreateCsvTable(string file)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-            var writer = new StreamWriter(_outputPath + @"\" + fileNameWithoutExtension + ".sql",false);
-            var reader = new CsvReader(File.OpenText(file), true, ',', '"', '"', '#',
+            var writer = new StreamWriter(_outputPath + @"\" + fileNameWithoutExtension + ".sql", false);
+            var reader = new CsvReader(File.OpenText(file), true, ',', '\"', '\"', '#',
                                        ValueTrimmingOptions.UnquotedOnly);
             return new CsvTable(reader, writer, fileNameWithoutExtension,
                                 _tablesWithIdentities.Contains(fileNameWithoutExtension.ToLower()));

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace CsvInserter
 {
@@ -38,12 +37,12 @@ namespace CsvInserter
         private void InsertRows(ICsvTable csvTable, StringBuilder builder)
         {
             string insertHeader = string.Format(InsertHeaderFormat, csvTable.Name,
-                                    Join(csvTable.GetColumnNames(), Delimeter));
+                                                Join(csvTable.GetColumnNames(), Delimeter));
             int i = 1;
             while (csvTable.ReadNextRow())
             {
                 InsertRow(csvTable, builder, insertHeader);
-                if (i % _rowsPerChunk == 0)
+                if (i%_rowsPerChunk == 0)
                     BreakUpChunkWithGo(builder);
                 i++;
             }
@@ -88,10 +87,10 @@ namespace CsvInserter
         {
             var joinedValues = "";
             var delimeterIfNotFirstValue = "";
-            var escapingStrategy = new EscapingStrategy( quoteChar);
+            var escapingStrategy = new EscapingStrategy(quoteChar);
             foreach (string value in values)
             {
-                joinedValues= joinedValues+ delimeterIfNotFirstValue + escapingStrategy.Escape(value, addQuotes);
+                joinedValues = joinedValues + delimeterIfNotFirstValue + escapingStrategy.Escape(value, addQuotes);
                 delimeterIfNotFirstValue = delimeter;
             }
             return joinedValues;

@@ -30,7 +30,7 @@ namespace CsvInserter
                 {
                     _queryExecutor.ExecuteNonQueryStatement("drop table " + table.TableName);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _logger.Log("         Failed " + table.TableName);
                     fail = true;
@@ -66,8 +66,7 @@ namespace CsvInserter
                     results.Columns.Remove(column);
                 }
 
-                var csvOptions = new CsvOptions("blah", ',', results.Columns.Count);
-
+                var csvOptions = new CsvOptions("blah", ',', results.Columns.Count) {DateFormat = "g"};
                 CsvEngine.DataTableToCsv(results, _destinationDirectory + table.TableName.ToLower() + ".csv", csvOptions);
             }
         }

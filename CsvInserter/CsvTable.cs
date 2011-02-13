@@ -10,11 +10,11 @@ namespace CsvInserter
         bool HasIdentity { get; }
         string[] GetColumnNames();
         bool ReadNextRow();
-        string [] GetValues();
+        string[] GetValues();
         void Write(string outputString);
     }
 
-    public class CsvTable : IDisposable, ICsvTable
+    public class CsvTable :  ICsvTable
     {
         private readonly CsvReader _csvTextReader;
         private readonly TextWriter _sqlWriter;
@@ -49,7 +49,8 @@ namespace CsvInserter
         {
             return _csvTextReader.ReadNextRecord();
         }
-        public string [] GetValues()
+
+        public string[] GetValues()
         {
             var fieldCount = _csvTextReader.FieldCount;
             var values = new string[fieldCount];
