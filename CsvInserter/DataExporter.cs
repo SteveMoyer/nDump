@@ -8,20 +8,17 @@ namespace CsvInserter
     public class DataExporter
     {
         private readonly ConsoleLogger _logger;
-        private readonly string _serverName;
         private readonly string _destinationDirectory;
         private readonly QueryExecutor _queryExecutor;
 
-        public DataExporter(ConsoleLogger logger, string serverName, string destinationDirectory,
-                            QueryExecutor queryExecutor)
+        public DataExporter(ConsoleLogger logger, string destinationDirectory, QueryExecutor queryExecutor)
         {
             _logger = logger;
             _queryExecutor = queryExecutor;
             _destinationDirectory = destinationDirectory;
-            _serverName = serverName;
         }
 
-        public void TearDownFilterTables(List<SqlTableSelect> filtertableSelects, string databaseName)
+        public void TearDownFilterTables(List<SqlTableSelect> filtertableSelects)
         {
             bool fail = false;
             string failedSteps = string.Empty;
@@ -31,10 +28,7 @@ namespace CsvInserter
                 _logger.Log("     " + table.TableName);
                 try
                 {
-                    _queryExecutor.ExecuteNonQueryStatement("drop table " + table.TableName,
-                                                            "server=" + _serverName +
-                                                            ";Integrated Security=SSPI;Initial Catalog=" +
-                                                            databaseName);
+                    _queryExecutor.ExecuteNonQueryStatement("drop table " + table.TableName);
                 }
                 catch (Exception e)
                 {
@@ -47,20 +41,17 @@ namespace CsvInserter
                 throw new TearDownException("one or more teardown steps failed:" + failedSteps);
         }
 
-        public void SetupFilterTables(List<SqlTableSelect> filtertableSelects, string databaseName)
+        public void SetupFilterTables(List<SqlTableSelect> filtertableSelects)
         {
             _logger.Log("Setting Up:");
             foreach (var table in filtertableSelects)
             {
                 _logger.Log("     " + table.TableName);
-                _queryExecutor.ExecuteNonQueryStatement(table.Select,
-                                                        "server=" + _serverName +
-                                                        ";Integrated Security=SSPI;Initial Catalog=" +
-                                                        databaseName);
+                _queryExecutor.ExecuteNonQueryStatement(table.Select);
             }
         }
 
-        public void GenerateCsvs(List<SqlTableSelect> selects, string databaseName)
+        public void GenerateCsvs(List<SqlTableSelect> selects)
         {
             _logger.Log("Generating Csv:");
 
@@ -69,9 +60,7 @@ namespace CsvInserter
                 _logger.Log("     " + table.TableName);
                 var select = table.Select != string.Empty ? table.Select : "select * from " + table.TableName;
                 DataTable results =
-                    _queryExecutor.ExecuteSelectStatement(select,
-                                                          "server=" + _serverName +
-                                                          ";Integrated Security=SSPI;Initial Catalog=" + databaseName);
+                    _queryExecutor.ExecuteSelectStatement(select);
                 foreach (var column in table.ExcludedColumns)
                 {
                     results.Columns.Remove(column);

@@ -5,9 +5,16 @@ namespace CsvInserter
 {
     public class QueryExecutor
     {
-        public void ExecuteNonQueryStatement(string selectStatement, string connectionString)
+        private readonly string _connectionString;
+
+        public QueryExecutor(string connectionString)
         {
-            using (var connection = new SqlConnection(connectionString))
+            _connectionString = connectionString;
+        }
+
+        public void ExecuteNonQueryStatement(string selectStatement)
+        {
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var nonQueryCommand = new SqlCommand(selectStatement, connection);
                 nonQueryCommand.CommandType = CommandType.Text;
@@ -16,9 +23,9 @@ namespace CsvInserter
             }
         }
 
-        public DataTable ExecuteSelectStatement(string selectStatement, string connectionString)
+        public DataTable ExecuteSelectStatement(string selectStatement)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 SqlDataAdapter adap;
                 adap = new SqlDataAdapter(selectStatement, connection);
