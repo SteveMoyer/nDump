@@ -10,25 +10,25 @@ namespace CsvInserter
         ICsvTable CreateCsvTable(string file);
     }
 
-    internal class CsvTableFactory : ICsvTableFactory
+    public class CsvTableFactory : ICsvTableFactory
     {
         private readonly string _outputPath;
-        private readonly IList<String> _tablesWithoutIdentities;
+        private readonly IList<String> _tablesWithIdentities;
 
-        public CsvTableFactory(string outputPath, IList<string> tablesWithoutIdentities)
+        public CsvTableFactory(string outputPath, IList<string> tablesWithIdentities)
         {
             _outputPath = outputPath;
-            _tablesWithoutIdentities = tablesWithoutIdentities;
+            _tablesWithIdentities = tablesWithIdentities;
         }
 
         public ICsvTable CreateCsvTable(string file)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-            var writer = new StreamWriter(File.OpenWrite(_outputPath + @"\" + fileNameWithoutExtension + ".sql"));
-            var reader = new CsvReader(File.OpenText(file), true, ',', '\'', '\'', '#',
+            var writer = new StreamWriter(_outputPath + @"\" + fileNameWithoutExtension + ".sql",false);
+            var reader = new CsvReader(File.OpenText(file), true, ',', '"', '"', '#',
                                        ValueTrimmingOptions.UnquotedOnly);
             return new CsvTable(reader, writer, fileNameWithoutExtension,
-                                _tablesWithoutIdentities.Contains(fileNameWithoutExtension));
+                                _tablesWithIdentities.Contains(fileNameWithoutExtension.ToLower()));
         }
     }
 }

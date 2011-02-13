@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumenWorks.Framework.Tests.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter.Unit", "CsvInserter.Unit\CsvInserter.Unit.csproj", "{63A90231-56B0-4BA7-9484-B4909890165D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter.Integration", "CsvInserter.Integration\CsvInserter.Integration.csproj", "{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter.Console", "CsvInserter.Console\CsvInserter.Console.csproj", "{339F5DB2-53E0-4958-BC0A-79843A5413FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +64,26 @@ Global
 		{63A90231-56B0-4BA7-9484-B4909890165D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{63A90231-56B0-4BA7-9484-B4909890165D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{63A90231-56B0-4BA7-9484-B4909890165D}.Release|x86.ActiveCfg = Release|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}.Release|x86.ActiveCfg = Release|Any CPU
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Debug|x86.ActiveCfg = Debug|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Debug|x86.Build.0 = Debug|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Release|Any CPU.ActiveCfg = Release|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Release|Mixed Platforms.Build.0 = Release|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Release|x86.ActiveCfg = Release|x86
+		{339F5DB2-53E0-4958-BC0A-79843A5413FB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

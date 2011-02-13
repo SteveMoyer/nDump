@@ -3,14 +3,14 @@
     public class CsvFileProcessor : ICsvProcessor
     {
         private readonly string[] _files;
-        private readonly ICvsToSqlInsertConverter _cvsToSqlInsertConverter;
+        private readonly ICsvToSqlInsertConverter _csvToSqlInsertConverter;
         private readonly ICsvTableFactory _csvTableFactory;
 
-        public CsvFileProcessor(string[] files, ICvsToSqlInsertConverter cvsToSqlInsertConverter,
+        public CsvFileProcessor(string[] files, ICsvToSqlInsertConverter csvToSqlInsertConverter,
                                 ICsvTableFactory csvTableFactory)
         {
             _files = files;
-            _cvsToSqlInsertConverter = cvsToSqlInsertConverter;
+            _csvToSqlInsertConverter = csvToSqlInsertConverter;
             _csvTableFactory = csvTableFactory;
         }
 
@@ -20,7 +20,7 @@
             {
                 using (var table = _csvTableFactory.CreateCsvTable(file))
                 {
-                    _cvsToSqlInsertConverter.Convert(table);
+                    _csvToSqlInsertConverter.Convert(table);
                 }
             }
         }

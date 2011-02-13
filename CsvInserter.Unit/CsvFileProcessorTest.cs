@@ -18,7 +18,7 @@ namespace CsvInserter.Unit
         [Test]
         public void ShouldCallConverterForEachFile()
         {
-            var converter = new Moq.Mock<ICvsToSqlInsertConverter>();
+            var converter = new Moq.Mock<ICsvToSqlInsertConverter>();
             var tableFactory = new Moq.Mock<ICsvTableFactory>();
             var table1 = new Moq.Mock<ICsvTable>().Object;
             var table2 = new Moq.Mock<ICsvTable>().Object;

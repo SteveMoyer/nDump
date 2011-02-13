@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FE26FDE2-574F-480E-96E6-4C2A5051D14A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{339F5DB2-53E0-4958-BC0A-79843A5413FB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CsvInserter</RootNamespace>
-    <AssemblyName>CsvInserter</AssemblyName>
+    <RootNamespace>CsvInserter.Console</RootNamespace>
+    <AssemblyName>CsvInserter.Console</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,47 +33,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FileHelpers">
-      <HintPath>..\lib\FileHelpers.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsvFileProcessor.cs" />
-    <Compile Include="CsvTable.cs" />
-    <Compile Include="CsvToSqlInsertConverter.cs" />
-    <Compile Include="EscapingStrategy.cs" />
-    <Compile Include="ICsvProcessor.cs" />
-    <Compile Include="ICsvTableFactory.cs" />
-    <Compile Include="ICsvToSqlInsertConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LumenWorks.Framework.IO\LumenWorks.Framework.IO.csproj">
-      <Project>{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}</Project>
-      <Name>LumenWorks.Framework.IO</Name>
+    <ProjectReference Include="..\CsvInserter\CsvInserter.csproj">
+      <Project>{FE26FDE2-574F-480E-96E6-4C2A5051D14A}</Project>
+      <Name>CsvInserter</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

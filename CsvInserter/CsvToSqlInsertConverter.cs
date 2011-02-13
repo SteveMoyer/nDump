@@ -1,9 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace CsvInserter
 {
-    public class CvsToSqlInsertConverter : ICvsToSqlInsertConverter
+    public class CsvToSqlInsertConverter : ICsvToSqlInsertConverter
     {
+        private readonly int _rowsPerChunk;
         private const string Delimeter = ",";
         private const char QuoteChar = '\'';
         private const string InsertHeaderFormat = "insert {0} ({1})";
@@ -12,6 +14,10 @@ namespace CsvInserter
         private const string Off = "off";
         private const string On = "on";
 
+        public CsvToSqlInsertConverter(int rowsPerChunk)
+        {
+            _rowsPerChunk = rowsPerChunk;
+        }
 
         public void Convert(ICsvTable csvTable)
         {
@@ -33,11 +39,19 @@ namespace CsvInserter
         {
             string insertHeader = string.Format(InsertHeaderFormat, csvTable.Name,
                                     Join(csvTable.GetColumnNames(), Delimeter));
-
+            int i = 1;
             while (csvTable.ReadNextRow())
             {
                 InsertRow(csvTable, builder, insertHeader);
+                if (i % _rowsPerChunk == 0)
+                    BreakUpChunkWithGo(builder);
+                i++;
             }
+        }
+
+        private void BreakUpChunkWithGo(StringBuilder builder)
+        {
+            builder.AppendLine("GO");
         }
 
         private void InsertRow(ICsvTable csvTable, StringBuilder builder, string insertHeader)

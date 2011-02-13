@@ -1,6 +1,6 @@
 ﻿namespace CsvInserter
 {
-    public interface ICvsToSqlInsertConverter
+    public interface ICsvToSqlInsertConverter
     {
         void Convert(ICsvTable csvTable);
     }
