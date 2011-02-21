@@ -60,6 +60,7 @@
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="CsvFileProcessor.cs" />
     <Compile Include="CsvTable.cs" />
+    <Compile Include="CsvTokenJoiner.cs" />
     <Compile Include="CsvToSqlInsertConverter.cs" />
     <Compile Include="DataExporter.cs" />
     <Compile Include="DataImporter.cs" />

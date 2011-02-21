@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using LumenWorks.Framework.IO.Csv;
 using NUnit.Framework;
@@ -12,7 +11,7 @@ namespace CsvInserter.Integration
         [Test]
         public void ShouldConvertASingleRow()
         {
-            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
+            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000, new CsvTokenJoiner());
             string csvInput = "col1,col2\n1,2";
             var sqlOutput = new StringBuilder();
             string tableName = "testTable";
@@ -27,7 +26,7 @@ namespace CsvInserter.Integration
         [Test]
         public void ShouldConvertMultipleRows()
         {
-            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
+            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000, new CsvTokenJoiner());
             string csvInput = "col1,col2\n1,2\n3,4";
             var sqlOutput = new StringBuilder();
             string tableName = "testTable";
@@ -40,10 +39,11 @@ namespace CsvInserter.Integration
                 "insert testTable (col1,col2) values ('1','2')\ninsert testTable (col1,col2) values ('3','4')\n",
                 sqlOutput.ToString());
         }
+
         [Test]
         public void ShouldIssueGoWhenChunkSizeExceeded()
         {
-            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(4);
+            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(4, new CsvTokenJoiner());
             string csvInput = "col1,col2\n1,2\n3,4\n1,2\n3,4\n1,2\n3,4\n1,2";
             var sqlOutput = new StringBuilder();
             string tableName = "testTable";
@@ -54,8 +54,9 @@ namespace CsvInserter.Integration
             }
             Assert.AreEqual(
                 1,
-                 CountStringOccurrences(sqlOutput.ToString(),"GO"));
+                CountStringOccurrences(sqlOutput.ToString(), "GO"));
         }
+
         public static int CountStringOccurrences(string text, string pattern)
         {
             // Loop through all instances of the string 'text'.

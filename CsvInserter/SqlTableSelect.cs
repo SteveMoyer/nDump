@@ -4,7 +4,7 @@ namespace CsvInserter
 {
     public class SqlTableSelect
     {
-        private readonly List<string> _excludedColumns = new List<string>();
+        private readonly IList<string> _excludedColumns = new List<string>();
         private readonly string _tableName;
         private readonly string _select;
         private readonly bool _hasIdentity;
@@ -16,13 +16,13 @@ namespace CsvInserter
             _hasIdentity = hasIdentity;
         }
 
-        public SqlTableSelect(string tableName, string select, bool hasIdentity, List<string> excludedColumns)
+        public SqlTableSelect(string tableName, string select, bool hasIdentity, IList<string> excludedColumns)
             : this(tableName, select, hasIdentity)
         {
             _excludedColumns = excludedColumns;
         }
 
-        public List<string> ExcludedColumns
+        public IList<string> ExcludedColumns
         {
             get { return _excludedColumns; }
         }

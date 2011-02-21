@@ -12,7 +12,7 @@ namespace CsvInserter
             IList<string> tablesWithoutIdentities = new List<string>(args[2].Split(new[] {','}));
             var files = Directory.GetFiles(path);
      
-            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
+            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000, new CsvTokenJoiner());
             var csvTableFactory = new CsvTableFactory(outputPath,tablesWithoutIdentities);
             ICsvProcessor csvFileProcessor = new CsvFileProcessor(files,csvToSqlInsertConverter, csvTableFactory);
             

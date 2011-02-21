@@ -18,7 +18,7 @@ namespace CsvInserter
             _destinationDirectory = destinationDirectory;
         }
 
-        public void TearDownFilterTables(List<SqlTableSelect> filtertableSelects)
+        public void TearDownFilterTables(IList<SqlTableSelect> filtertableSelects)
         {
             bool fail = false;
             string failedSteps = string.Empty;
@@ -49,6 +49,21 @@ namespace CsvInserter
                 _logger.Log("     " + table.TableName);
                 _queryExecutor.ExecuteNonQueryStatement(table.Select);
             }
+            
+        }
+
+        public void ExportToCsv(List<SqlTableSelect> setupScripts, List<SqlTableSelect> selects)
+        {
+            try
+            {
+                this.TearDownFilterTables(setupScripts);
+            }
+            catch (TearDownException)
+            {
+            }
+            SetupFilterTables(setupScripts);
+            GenerateCsvs(selects);
+            TearDownFilterTables(setupScripts);
         }
 
         public void GenerateCsvs(List<SqlTableSelect> selects)

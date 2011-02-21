@@ -43,5 +43,11 @@ namespace CsvInserter
                     _queryExecutor.ExecuteNonQueryStatement(script);
             }
         }
+        public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> selects)
+        {
+            DeleteDataFromAllDestinationTables(selects);
+            InsertDataIntoDesinationTables(selects);
+       
+        }
     }
 }
