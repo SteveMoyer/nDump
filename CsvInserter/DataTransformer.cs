@@ -27,7 +27,7 @@ namespace CsvInserter
                     tableSelect => tableSelect.TableName.ToLower()).ToList();
             var files = Directory.GetFiles(path);
 
-            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000, new CsvTokenJoiner());
+            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
             var csvTableFactory = new CsvTableFactory(outputPath, tablesWithIdentities);
             ICsvProcessor csvFileProcessor = new CsvFileProcessor(files, csvToSqlInsertConverter, csvTableFactory);
 

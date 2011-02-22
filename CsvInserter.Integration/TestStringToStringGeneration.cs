@@ -11,14 +11,15 @@ namespace CsvInserter.Integration
         [Test]
         public void ShouldConvertASingleRow()
         {
-            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000, new CsvTokenJoiner());
+            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
             string csvInput = "col1,col2\n1,2";
             var sqlOutput = new StringBuilder();
             string tableName = "testTable";
             using (var csvTextReader = new CsvReader(new StringReader(csvInput), true))
             {
-                csvToSqlInsertConverter.Convert(new CsvTable(csvTextReader,
-                                                             new StringWriter(sqlOutput), tableName, false));
+                csvToSqlInsertConverter.Convert(
+                    new CsvTable(csvTextReader,
+                    new StringWriter(sqlOutput), tableName, false));
             }
             Assert.AreEqual("insert testTable (col1,col2) values ('1','2')\n", sqlOutput.ToString());
         }
@@ -26,7 +27,7 @@ namespace CsvInserter.Integration
         [Test]
         public void ShouldConvertMultipleRows()
         {
-            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000, new CsvTokenJoiner());
+            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
             string csvInput = "col1,col2\n1,2\n3,4";
             var sqlOutput = new StringBuilder();
             string tableName = "testTable";
@@ -43,7 +44,7 @@ namespace CsvInserter.Integration
         [Test]
         public void ShouldIssueGoWhenChunkSizeExceeded()
         {
-            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(4, new CsvTokenJoiner());
+            var csvToSqlInsertConverter = new CsvToSqlInsertConverter(4);
             string csvInput = "col1,col2\n1,2\n3,4\n1,2\n3,4\n1,2\n3,4\n1,2";
             var sqlOutput = new StringBuilder();
             string tableName = "testTable";
@@ -52,9 +53,7 @@ namespace CsvInserter.Integration
                 csvToSqlInsertConverter.Convert(new CsvTable(csvTextReader,
                                                              new StringWriter(sqlOutput), tableName, false));
             }
-            Assert.AreEqual(
-                1,
-                CountStringOccurrences(sqlOutput.ToString(), "GO"));
+            Assert.AreEqual(1,CountStringOccurrences(sqlOutput.ToString(), "GO"));
         }
 
         public static int CountStringOccurrences(string text, string pattern)

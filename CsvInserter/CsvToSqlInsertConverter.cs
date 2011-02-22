@@ -7,16 +7,23 @@ namespace CsvInserter
     {
         private readonly int _rowsPerChunk;
         private readonly CsvTokenJoiner _csvTokenJoiner;
+        private readonly IEscapingStrategy _headerEscapingStrategy;
+        private readonly IEscapingStrategy _valueEscapingStrategy;
         private const string InsertHeaderFormat = "insert {0} ({1})";
         private const string InsertFormat = "{0} values ({1})\n";
         private const string SetIdentityInsertFormatString = "set identity_insert {0} {1}\n";
         private const string Off = "off";
         private const string On = "on";
 
-        public CsvToSqlInsertConverter(int rowsPerChunk, CsvTokenJoiner csvTokenJoiner)
+        public CsvToSqlInsertConverter(int rowsPerChunk, CsvTokenJoiner csvTokenJoiner, IEscapingStrategy headerEscapingStrategy, IEscapingStrategy valueEscapingStrategy)
         {
             _rowsPerChunk = rowsPerChunk;
             _csvTokenJoiner = csvTokenJoiner;
+            _headerEscapingStrategy = headerEscapingStrategy;
+            _valueEscapingStrategy = valueEscapingStrategy;
+        }
+        public CsvToSqlInsertConverter(int rowsPerChunk):this(rowsPerChunk,new CsvTokenJoiner(),new ColumnHeaderKeywordEscapingStrategy(),new ValueEscapingStrategy() )
+        {
         }
 
         public void Convert(ICsvTable csvTable)
@@ -37,8 +44,8 @@ namespace CsvInserter
 
         private void InsertRows(ICsvTable csvTable, StringBuilder builder)
         {
-            string insertHeader = string.Format(InsertHeaderFormat, csvTable.Name,
-                                                _csvTokenJoiner.Join(EscapeColumnNames(csvTable.GetColumnNames())));
+            string insertHeader = string.Format(InsertHeaderFormat, _headerEscapingStrategy.Escape(csvTable.Name),
+                                                _csvTokenJoiner.Join(_headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
             int i = 1;
             while (csvTable.ReadNextRow())
             {
@@ -49,12 +56,6 @@ namespace CsvInserter
             }
         }
 
-        private string[] EscapeColumnNames(string[] columnNames)
-        {
-            var keyWords = new[] {"user", "group", "database"};
-            return columnNames.Select(name => keyWords.Contains(name.ToLower()) ? "[" + name + "]" : name).ToArray();
-        }
-
         private void BreakUpChunkWithGo(StringBuilder builder)
         {
             builder.AppendLine("GO");
@@ -62,7 +63,7 @@ namespace CsvInserter
 
         private void InsertRow(ICsvTable csvTable, StringBuilder builder, string insertHeader)
         {
-            string insertValues = _csvTokenJoiner.JoinValues(csvTable.GetValues());
+            string insertValues = _csvTokenJoiner.Join(_valueEscapingStrategy.Escape( csvTable.GetValues()));
             builder.AppendFormat(InsertFormat, insertHeader, insertValues);
         }
 
