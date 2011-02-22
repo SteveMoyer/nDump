@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnHeaderKeywordEscapingStrategyTest.cs" />
     <Compile Include="CsvFileProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueEscapingStrategyTest.cs" />

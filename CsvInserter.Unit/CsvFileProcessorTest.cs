@@ -26,8 +26,8 @@ namespace CsvInserter.Unit
             tableFactory.Setup(tf => tf.CreateCsvTable("b")).Returns(table2);
             converter.Setup(c => c.Convert(table1));
             converter.Setup(c => c.Convert(table2));
-            new CsvFileProcessor(new string[] {"a", "b"}, converter.Object, tableFactory.Object).Process();
 
+            new CsvFileProcessor(new string[] {"a", "b"}, converter.Object, tableFactory.Object).Process();
 
             tableFactory.VerifyAll();
             converter.VerifyAll();
