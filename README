@@ -1,0 +1,37 @@
+The goal of this project is to make it easier to manage and spin up development and functional test datasets as an alternative to trying to use difficult to version database backups or sql files.
+
+In the process of creating these data sets you will have to understand the structure of your database(s).
+
+Overview:
+	Generate csv files of all data needed to run an app
+	Modify csv files(if necessary)
+	Convert csv files to sql files
+	run csv files against empty(or to be emptied) database
+	run app against filled database
+
+Task: Getting to CSV
+	Step 1:
+		Option 1. Export an entire database(only reasonable for small database)
+		Option 2. Build up a dataset from scratch and export to CSV(if only most apps worked starting with no data)
+		Option 3. Define and script a workable set of data from a database directly to csv(most likely with non-new databases)
+			Incrementally build filter scripts to decide what data you want in your data set
+
+	Step 2:
+		Add csv files to version control
+
+Task: Populate Database from Csv files
+    Step 1 Convert Csv Files to Sql
+	Step 2 Execute sql against database
+
+Task: Add Additional Data
+	Step 1:	
+		Option 1: Load the data and add additional data through your application
+		Option 2: Enter additional data directly into the csv files
+
+	Step 2:
+		Commit changes to version control
+
+Task: Run Functional Tests
+	Step 1: Reset database to stable data set state
+	Step 2: Run functional tests 
+
