@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace CsvInserter
 {
@@ -15,14 +14,19 @@ namespace CsvInserter
         private const string Off = "off";
         private const string On = "on";
 
-        public CsvToSqlInsertConverter(int rowsPerChunk, CsvTokenJoiner csvTokenJoiner, IEscapingStrategy headerEscapingStrategy, IEscapingStrategy valueEscapingStrategy)
+        public CsvToSqlInsertConverter(int rowsPerChunk, CsvTokenJoiner csvTokenJoiner,
+                                       IEscapingStrategy headerEscapingStrategy, IEscapingStrategy valueEscapingStrategy)
         {
             _rowsPerChunk = rowsPerChunk;
             _csvTokenJoiner = csvTokenJoiner;
             _headerEscapingStrategy = headerEscapingStrategy;
             _valueEscapingStrategy = valueEscapingStrategy;
         }
-        public CsvToSqlInsertConverter(int rowsPerChunk):this(rowsPerChunk,new CsvTokenJoiner(),new ColumnHeaderKeywordEscapingStrategy(),new ValueEscapingStrategy() )
+
+        public CsvToSqlInsertConverter(int rowsPerChunk)
+            : this(
+                rowsPerChunk, new CsvTokenJoiner(), new ColumnHeaderKeywordEscapingStrategy(),
+                new ValueEscapingStrategy())
         {
         }
 
@@ -45,7 +49,8 @@ namespace CsvInserter
         private void InsertRows(ICsvTable csvTable, StringBuilder builder)
         {
             string insertHeader = string.Format(InsertHeaderFormat, _headerEscapingStrategy.Escape(csvTable.Name),
-                                                _csvTokenJoiner.Join(_headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
+                                                _csvTokenJoiner.Join(
+                                                    _headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
             int i = 1;
             while (csvTable.ReadNextRow())
             {
@@ -63,7 +68,7 @@ namespace CsvInserter
 
         private void InsertRow(ICsvTable csvTable, StringBuilder builder, string insertHeader)
         {
-            string insertValues = _csvTokenJoiner.Join(_valueEscapingStrategy.Escape( csvTable.GetValues()));
+            string insertValues = _csvTokenJoiner.Join(_valueEscapingStrategy.Escape(csvTable.GetValues()));
             builder.AppendFormat(InsertFormat, insertHeader, insertValues);
         }
 
@@ -84,7 +89,5 @@ namespace CsvInserter
         {
             SetIdentityInsert(csvTable, builder, On);
         }
-
-
     }
 }
