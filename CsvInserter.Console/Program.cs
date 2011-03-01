@@ -2,11 +2,7 @@
 {
     internal class Program
     {
-        private static void Main(string[] args)
-        {
-            if (args.Length == 0)
-            {
-                System.Console.Write(@"Usage:
+        private const string USAGE = @"Usage:
     -e      Export (requires -sourceconnection and -csv)
     -i      Import (requires -sql and -targetconnection)
     -t      transform (requires -csv and -sql)
@@ -17,7 +13,13 @@
     -targetconnection   target database connection string
 Sample:
     CsvInserter.Console.exe -f dataPlan.xml -sourceconnection ""server=.;Integrated Security=SSPI;Initial Catalog=mydb"" -csv .\csv\  -sql .\sql\ -targetconnection ""server=.;Integrated Security=SSPI;Initial Catalog=emptymydb"" -e -t -i
-");
+";
+
+        private static void Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                System.Console.Write(USAGE);
                 return;
             }
             var csvInserterArgParser = new CSVInserterArgParser();

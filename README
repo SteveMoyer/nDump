@@ -35,3 +35,54 @@ Task: Run Functional Tests
 	Step 1: Reset database to stable data set state
 	Step 2: Run functional tests 
 
+
+
+
+
+CsvInserter.Console.exe
+Usage:
+    -e      Export (requires -sourceconnection and -csv)
+    -i      Import (requires -sql and -targetconnection)
+    -t      transform (requires -csv and -sql)
+    -f      data plan file (required)
+    -csv    csv file directory
+    -sql    sql file directory
+    -sourceconnection   source database connection string
+    -targetconnection   target database connection string
+Sample:
+    CsvInserter.Console.exe -f dataPlan.xml -sourceconnection "server=.;Integrated Security=SSPI;Initial Catalog=mydb" -csv .\csv\  -sql .\sql\ -targetconnection "server=.;Integrated Security=SSPI;Initial Catalog=emptymydb" -e -t -i
+
+
+DataPlan XML file format:
+
+<?xml version="1.0"?>
+<DataPlan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DataSelects>
+    <SqlTableSelect>
+      <ExcludedColumns />
+      <HasIdentity>true</HasIdentity>
+      <Select>select * from users where userid in (select userid from dbex_user) </Select>
+      <TableName>users</TableName>
+    </SqlTableSelect>
+	<SqlTableSelect>
+      <ExcludedColumns />
+      <HasIdentity>true</HasIdentity>
+      <Select>select * from groups </Select>
+      <TableName>groups</TableName>
+    </SqlTableSelect>
+	<SqlTableSelect>
+      <ExcludedColumns />
+      <HasIdentity>false</HasIdentity>
+      <Select>select * from groupmembership where userid in (select userid from dbex_user) </Select>
+      <TableName>groupmembership</TableName>
+    </SqlTableSelect>
+  </DataSelects>
+  <SetupScripts>
+    <SqlTableSelect>
+      <ExcludedColumns />
+      <HasIdentity>false</HasIdentity>
+      <Select>select top 5 * into dbex_user from [user]  </Select>
+      <TableName>dbex_user</TableName>
+    </SqlTableSelect>    
+  </SetupScripts>
+</DataPlan>
