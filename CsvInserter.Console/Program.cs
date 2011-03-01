@@ -1,24 +1,48 @@
-﻿using System.Collections.Generic;
-using System.IO;
-
-namespace CsvInserter.Console
+﻿namespace CsvInserter.Console
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                System.Console.Write(@"Usage:
+    -e      Export (requires -sourceconnection and -csv)
+    -i      Import (requires -sql and -targetconnection)
+    -t      transform (requires -csv and -sql)
+    -f      data plan file (required)
+    -csv    csv file directory
+    -sql    sql file directory
+    -sourceconnection   source database connection string
+    -targetconnection   target database connection string
+Sample:
+    CsvInserter.Console.exe -f dataPlan.xml -sourceconnection ""server=.;Integrated Security=SSPI;Initial Catalog=mydb"" -csv .\csv\  -sql .\sql\ -targetconnection ""server=.;Integrated Security=SSPI;Initial Catalog=emptymydb"" -e -t -i
+");
+                return;
+            }
             var csvInserterArgParser = new CSVInserterArgParser();
             CsvInserterArgs csvInserterArgs = csvInserterArgParser.Parse(args);
-            var path = args[0];
-            var outputPath = args[1];
-            IList<string> tablesWithoutIdentities = new List<string>(args[2].Split(new[] {','}));
-            var files = Directory.GetFiles(path);
-
-            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
-            var csvTableFactory = new CsvTableFactory(outputPath, tablesWithoutIdentities);
-            ICsvProcessor csvFileProcessor = new CsvFileProcessor(files, csvToSqlInsertConverter, csvTableFactory);
-
-            csvFileProcessor.Process();
+            DataPlan dataPlan = DataPlan.Load(csvInserterArgs.File1);
+             
+            if (csvInserterArgs.Export)
+            {
+                var exporter = new DataExporter(new ConsoleLogger(), csvInserterArgs.CsvDirectory,
+                                                new QueryExecutor(csvInserterArgs.SourceConnectionString));
+                exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
+            }
+            if (csvInserterArgs.Transform)
+            {
+                var transformer = new DataTransformer(csvInserterArgs.SqlDiretory, csvInserterArgs.CsvDirectory,
+                                                      new ConsoleLogger());
+                transformer.ConvertCsvToSql(dataPlan.DataSelects);
+            }
+            if (csvInserterArgs.Import)
+            {
+                var importer = new DataImporter(new ConsoleLogger(),
+                                                new QueryExecutor(csvInserterArgs.TargetConnectionString),
+                                                csvInserterArgs.SqlDiretory);
+                importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
+            }   
         }
     }
 
@@ -29,6 +53,10 @@ namespace CsvInserter.Console
             int position = 0;
             bool export = false, import = false, transform = false;
             string file = string.Empty;
+            string csvDirectory = string.Empty;
+            string sqlDirectory = string.Empty;
+            string sourceConnection = string.Empty;
+            string targetConnection = string.Empty;
             while (position < args.Length)
             {
                 switch (args[position].ToLower())
@@ -49,11 +77,25 @@ namespace CsvInserter.Console
                         file = args[position + 1];
                         position += 2;
                         break;
+                    case "-csv":
+                        csvDirectory = args[position + 1];
+                        position += 2;
+                        break;
+                    case "-sql":
+                        sqlDirectory = args[position + 1];
+                        position += 2;
+                        break;
+                    case "-sourceconnection":
+                        sourceConnection= args[position + 1];
+                        position += 2;
+                        break;
+                    case "-targetconnection":
+                        targetConnection= args[position + 1];
+                        position += 2;
+                        break;
                 }
             }
-            string csvDirectory = string.Empty;
-            string sqlDiretory = string.Empty;
-            return new CsvInserterArgs(export, transform, import, file, csvDirectory, sqlDiretory);
+            return new CsvInserterArgs(export, transform, import, file, csvDirectory, sqlDirectory,sourceConnection,targetConnection);
         }
     }
 
@@ -65,11 +107,15 @@ namespace CsvInserter.Console
         private readonly string _file;
         private readonly string _csvDirectory;
         private readonly string _sqlDiretory;
+        private readonly string _sourceConnectionString;
+        private string _targetConnectionString;
 
         public CsvInserterArgs(bool export, bool transform, bool import, string file, string csvDirectory,
-                               string sqlDiretory)
+                               string sqlDiretory, string sourceConnectionString, string targetConnectionString)
         {
             _export = export;
+            _targetConnectionString = targetConnectionString;
+            _sourceConnectionString = sourceConnectionString;
             _transform = transform;
             _import = import;
             _file = file;
@@ -105,6 +151,16 @@ namespace CsvInserter.Console
         public bool Export
         {
             get { return _export; }
+        }
+
+        public string SourceConnectionString
+        {
+            get { return _sourceConnectionString; }
+        }
+
+        public string TargetConnectionString
+        {
+            get { return _targetConnectionString; }
         }
     }
 }
