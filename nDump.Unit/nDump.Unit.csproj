@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}</ProjectGuid>
+    <ProjectGuid>{63A90231-56B0-4BA7-9484-B4909890165D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>nDump.Integration</RootNamespace>
-    <AssemblyName>nDump.Integration</AssemblyName>
+    <RootNamespace>nDump.Unit</RootNamespace>
+    <AssemblyName>nDump.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\lib\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\nunit.framework.dll</HintPath>
@@ -43,11 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnHeaderKeywordEscapingStrategyTest.cs" />
+    <Compile Include="CsvFileProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestStringToStringGeneration.cs" />
+    <Compile Include="ValueEscapingStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CsvInserter\nDump.csproj">
+    <ProjectReference Include="..\nDump\nDump.csproj">
       <Project>{FE26FDE2-574F-480E-96E6-4C2A5051D14A}</Project>
       <Name>nDump</Name>
     </ProjectReference>
