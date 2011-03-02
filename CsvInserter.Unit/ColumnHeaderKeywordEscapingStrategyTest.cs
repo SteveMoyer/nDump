@@ -1,7 +1,7 @@
 ﻿
 using NUnit.Framework;
 
-namespace CsvInserter.Unit
+namespace nDump.Unit
 {
     [TestFixture]
     public class ColumnHeaderKeywordEscapingStrategyTest

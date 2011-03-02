@@ -1,4 +1,6 @@
-﻿namespace CsvInserter.Console
+﻿using nDump;
+
+namespace nDump.Console
 {
     internal class Program
     {
@@ -12,7 +14,7 @@
     -sourceconnection   source database connection string
     -targetconnection   target database connection string
 Sample:
-    CsvInserter.Console.exe -f dataPlan.xml -sourceconnection ""server=.;Integrated Security=SSPI;Initial Catalog=mydb"" -csv .\csv\  -sql .\sql\ -targetconnection ""server=.;Integrated Security=SSPI;Initial Catalog=emptymydb"" -e -t -i
+    nDump.exe -f dataPlan.xml -sourceconnection ""server=.;Integrated Security=SSPI;Initial Catalog=mydb"" -csv .\csv\  -sql .\sql\ -targetconnection ""server=.;Integrated Security=SSPI;Initial Catalog=emptymydb"" -e -t -i
 ";
 
         private static void Main(string[] args)
@@ -22,35 +24,35 @@ Sample:
                 System.Console.Write(USAGE);
                 return;
             }
-            var csvInserterArgParser = new CSVInserterArgParser();
-            CsvInserterArgs csvInserterArgs = csvInserterArgParser.Parse(args);
-            DataPlan dataPlan = DataPlan.Load(csvInserterArgs.File1);
+            var csvInserterArgParser = new nDumpParser();
+            nDumpArgs nDumpArgs = csvInserterArgParser.Parse(args);
+            DataPlan dataPlan = DataPlan.Load(nDumpArgs.File1);
              
-            if (csvInserterArgs.Export)
+            if (nDumpArgs.Export)
             {
-                var exporter = new DataExporter(new ConsoleLogger(), csvInserterArgs.CsvDirectory,
-                                                new QueryExecutor(csvInserterArgs.SourceConnectionString));
+                var exporter = new DataExporter(new ConsoleLogger(), nDumpArgs.CsvDirectory,
+                                                new QueryExecutor(nDumpArgs.SourceConnectionString));
                 exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
             }
-            if (csvInserterArgs.Transform)
+            if (nDumpArgs.Transform)
             {
-                var transformer = new DataTransformer(csvInserterArgs.SqlDiretory, csvInserterArgs.CsvDirectory,
+                var transformer = new DataTransformer(nDumpArgs.SqlDiretory, nDumpArgs.CsvDirectory,
                                                       new ConsoleLogger());
                 transformer.ConvertCsvToSql(dataPlan.DataSelects);
             }
-            if (csvInserterArgs.Import)
+            if (nDumpArgs.Import)
             {
                 var importer = new DataImporter(new ConsoleLogger(),
-                                                new QueryExecutor(csvInserterArgs.TargetConnectionString),
-                                                csvInserterArgs.SqlDiretory);
+                                                new QueryExecutor(nDumpArgs.TargetConnectionString),
+                                                nDumpArgs.SqlDiretory);
                 importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
             }   
         }
     }
 
-    internal class CSVInserterArgParser
+    internal class nDumpParser
     {
-        public CsvInserterArgs Parse(string[] args)
+        public nDumpArgs Parse(string[] args)
         {
             int position = 0;
             bool export = false, import = false, transform = false;
@@ -97,11 +99,11 @@ Sample:
                         break;
                 }
             }
-            return new CsvInserterArgs(export, transform, import, file, csvDirectory, sqlDirectory,sourceConnection,targetConnection);
+            return new nDumpArgs(export, transform, import, file, csvDirectory, sqlDirectory,sourceConnection,targetConnection);
         }
     }
 
-    internal class CsvInserterArgs
+    internal class nDumpArgs
     {
         private readonly bool _export;
         private readonly bool _transform;
@@ -112,7 +114,7 @@ Sample:
         private readonly string _sourceConnectionString;
         private string _targetConnectionString;
 
-        public CsvInserterArgs(bool export, bool transform, bool import, string file, string csvDirectory,
+        public nDumpArgs(bool export, bool transform, bool import, string file, string csvDirectory,
                                string sqlDiretory, string sourceConnectionString, string targetConnectionString)
         {
             _export = export;

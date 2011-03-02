@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using FileHelpers;
 
-namespace CsvInserter
+namespace nDump
 {
     public class DataExporter
     {
@@ -49,14 +49,13 @@ namespace CsvInserter
                 _logger.Log("     " + table.TableName);
                 _queryExecutor.ExecuteNonQueryStatement(table.Select);
             }
-            
         }
 
         public void ExportToCsv(List<SqlTableSelect> setupScripts, List<SqlTableSelect> selects)
         {
             try
             {
-                this.TearDownFilterTables(setupScripts);
+                TearDownFilterTables(setupScripts);
             }
             catch (TearDownException)
             {

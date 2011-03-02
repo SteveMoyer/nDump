@@ -3,7 +3,7 @@ using System.Text;
 using LumenWorks.Framework.IO.Csv;
 using NUnit.Framework;
 
-namespace CsvInserter.Integration
+namespace nDump.Integration
 {
     [TestFixture]
     public class TestStringToStringGeneration

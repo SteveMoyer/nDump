@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace CsvInserter
+namespace nDump
 {
     public class ColumnHeaderKeywordEscapingStrategy: IEscapingStrategy
     {

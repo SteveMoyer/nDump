@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using nDump;
 
-namespace CsvInserter
+namespace nDump
 {
     public class DataImporter
     {

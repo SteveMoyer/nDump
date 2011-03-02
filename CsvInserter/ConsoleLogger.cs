@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CsvInserter
+namespace nDump
 {
     public class ConsoleLogger
     {

@@ -8,8 +8,8 @@
     <ProjectGuid>{63A90231-56B0-4BA7-9484-B4909890165D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CsvInserter.Unit</RootNamespace>
-    <AssemblyName>CsvInserter.Unit</AssemblyName>
+    <RootNamespace>nDump.Unit</RootNamespace>
+    <AssemblyName>nDump.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,9 +52,9 @@
     <Compile Include="ValueEscapingStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CsvInserter\CsvInserter.csproj">
+    <ProjectReference Include="..\CsvInserter\nDump.csproj">
       <Project>{FE26FDE2-574F-480E-96E6-4C2A5051D14A}</Project>
-      <Name>CsvInserter</Name>
+      <Name>nDump</Name>
     </ProjectReference>
     <ProjectReference Include="..\LumenWorks.Framework.IO\LumenWorks.Framework.IO.csproj">
       <Project>{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}</Project>

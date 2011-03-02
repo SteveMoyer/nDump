@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter", "CsvInserter\CsvInserter.csproj", "{FE26FDE2-574F-480E-96E6-4C2A5051D14A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nDump", "CsvInserter\nDump.csproj", "{FE26FDE2-574F-480E-96E6-4C2A5051D14A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumenWorks.Framework.IO", "LumenWorks.Framework.IO\LumenWorks.Framework.IO.csproj", "{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumenWorks.Framework.Tests.Unit", "LumenWorks.Framework.Tests.Unit\LumenWorks.Framework.Tests.Unit.csproj", "{DBF22390-41BC-4E33-BC9E-F381621EBF01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter.Unit", "CsvInserter.Unit\CsvInserter.Unit.csproj", "{63A90231-56B0-4BA7-9484-B4909890165D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nDump.Unit", "CsvInserter.Unit\nDump.Unit.csproj", "{63A90231-56B0-4BA7-9484-B4909890165D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter.Integration", "CsvInserter.Integration\CsvInserter.Integration.csproj", "{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nDump.Integration", "CsvInserter.Integration\nDump.Integration.csproj", "{E6F5B9C6-A111-4787-98A1-A8EE8E603D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvInserter.Console", "CsvInserter.Console\CsvInserter.Console.csproj", "{339F5DB2-53E0-4958-BC0A-79843A5413FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nDump.Console", "CsvInserter.Console\nDump.Console.csproj", "{339F5DB2-53E0-4958-BC0A-79843A5413FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

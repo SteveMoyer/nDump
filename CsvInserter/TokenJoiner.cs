@@ -1,17 +1,17 @@
-﻿namespace CsvInserter
+﻿namespace nDump
 {
-    public class CsvTokenJoiner
+    public class TokenJoiner
     {
         private readonly string _delimeter;
         private const string Delimeter = ",";
 
 
-        public CsvTokenJoiner(string delimeter)
+        public TokenJoiner(string delimeter)
         {
             _delimeter = delimeter;
         }
 
-        public CsvTokenJoiner():this(Delimeter)
+        public TokenJoiner():this(Delimeter)
         {
 
         }

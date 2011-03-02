@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace CsvInserter
+namespace nDump
 {
     [Serializable]
     public class DataPlan
     {
-        private  List<SqlTableSelect> _setupScripts;
-        private  List<SqlTableSelect> _dataSelects;
+        private List<SqlTableSelect> _setupScripts;
+        private List<SqlTableSelect> _dataSelects;
 
         public DataPlan(List<SqlTableSelect> setupScripts, List<SqlTableSelect> dataSelects)
         {
             _setupScripts = setupScripts;
             _dataSelects = dataSelects;
         }
+
         public DataPlan()
         {
         }
@@ -29,7 +30,7 @@ namespace CsvInserter
         public List<SqlTableSelect> SetupScripts
         {
             get { return _setupScripts; }
-            set { _setupScripts=value; }
+            set { _setupScripts = value; }
         }
 
         public void Save(string fileName)

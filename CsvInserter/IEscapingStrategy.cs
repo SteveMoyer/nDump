@@ -1,4 +1,4 @@
-﻿namespace CsvInserter
+﻿namespace nDump
 {
     public interface IEscapingStrategy
     {

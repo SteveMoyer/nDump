@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using nDump;
 
-namespace CsvInserter
+namespace nDump
 {
     public class Program
     {

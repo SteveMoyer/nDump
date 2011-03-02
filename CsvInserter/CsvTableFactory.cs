@@ -2,7 +2,7 @@
 using System.IO;
 using LumenWorks.Framework.IO.Csv;
 
-namespace CsvInserter
+namespace nDump
 {
     public class CsvTableFactory : ICsvTableFactory
     {
