@@ -64,8 +64,8 @@
     <Compile Include="CsvTableFactory.cs" />
     <Compile Include="TokenJoiner.cs" />
     <Compile Include="CsvToSqlInsertConverter.cs" />
-    <Compile Include="DataExporter.cs" />
-    <Compile Include="DataImporter.cs" />
+    <Compile Include="SqlDataExporter.cs" />
+    <Compile Include="SqlDataImporter.cs" />
     <Compile Include="DataPlan.cs" />
     <Compile Include="DataTransformer.cs" />
     <Compile Include="ValueEscapingStrategy.cs" />

@@ -4,7 +4,6 @@ namespace nDump
 {
     public class CsvToSqlInsertConverter : ICsvToSqlInsertConverter
     {
-        private readonly int _rowsPerChunk;
         private readonly TokenJoiner _tokenJoiner;
         private readonly IEscapingStrategy _headerEscapingStrategy;
         private readonly IEscapingStrategy _valueEscapingStrategy;
@@ -14,18 +13,15 @@ namespace nDump
         private const string Off = "off";
         private const string On = "on";
 
-        public CsvToSqlInsertConverter(int rowsPerChunk, TokenJoiner tokenJoiner,
-                                       IEscapingStrategy headerEscapingStrategy, IEscapingStrategy valueEscapingStrategy)
+        public CsvToSqlInsertConverter(TokenJoiner tokenJoiner, IEscapingStrategy headerEscapingStrategy, IEscapingStrategy valueEscapingStrategy)
         {
-            _rowsPerChunk = rowsPerChunk;
             _tokenJoiner = tokenJoiner;
             _headerEscapingStrategy = headerEscapingStrategy;
             _valueEscapingStrategy = valueEscapingStrategy;
         }
 
         public CsvToSqlInsertConverter(int rowsPerChunk)
-            : this(
-                rowsPerChunk, new TokenJoiner(), new ColumnHeaderKeywordEscapingStrategy(),
+            : this(new TokenJoiner(), new ColumnHeaderKeywordEscapingStrategy(),
                 new ValueEscapingStrategy())
         {
         }
@@ -51,13 +47,10 @@ namespace nDump
             string insertHeader = string.Format(InsertHeaderFormat, _headerEscapingStrategy.Escape(csvTable.Name),
                                                 _tokenJoiner.Join(
                                                     _headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
-            int i = 1;
+
             while (csvTable.ReadNextRow())
             {
                 InsertRow(csvTable, builder, insertHeader);
-                if (i%_rowsPerChunk == 0)
-                    BreakUpChunkWithGo(builder);
-                i++;
             }
         }
 
