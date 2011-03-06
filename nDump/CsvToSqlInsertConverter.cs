@@ -54,11 +54,6 @@ namespace nDump
             }
         }
 
-        private void BreakUpChunkWithGo(StringBuilder builder)
-        {
-            builder.AppendLine("GO");
-        }
-
         private void InsertRow(ICsvTable csvTable, StringBuilder builder, string insertHeader)
         {
             string insertValues = _tokenJoiner.Join(_valueEscapingStrategy.Escape(csvTable.GetValues()));
