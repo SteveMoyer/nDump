@@ -1,4 +1,6 @@
-﻿namespace nDump.Console
+﻿using System;
+
+namespace nDump.Console
 {
     internal class Program
     {
@@ -16,36 +18,72 @@ Sample:
     nDump.exe -f dataPlan.xml -sourceconnection ""server=.;Integrated Security=SSPI;Initial Catalog=mydb"" -csv .\csv\  -sql .\sql\ -targetconnection ""server=.;Integrated Security=SSPI;Initial Catalog=emptymydb"" -e -t -i
 ";
 
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
             if (args.Length == 0)
             {
                 System.Console.Write(Usage);
-                return;
+                return -1;
             }
             var csvInserterArgParser = new nDumpParser();
             nDumpArgs nDumpArgs = csvInserterArgParser.Parse(args);
             DataPlan dataPlan = DataPlan.Load(nDumpArgs.File1);
 
+            var consoleLogger = new ConsoleLogger();
             if (nDumpArgs.Export)
             {
-                var exporter = new SqlDataExporter(new ConsoleLogger(), nDumpArgs.CsvDirectory,
+                var exporter = new SqlDataExporter(consoleLogger, nDumpArgs.CsvDirectory,
                                                    new QueryExecutor(nDumpArgs.SourceConnectionString));
-                exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
+                try
+                {
+                    exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
+ 
+                }
+                catch (nDumpApplicationException ex)
+                {
+
+                    consoleLogger.Log("Export To Csv Failed.\n"+ ex.StackTrace);
+                    return -1;
+                    
+                }
             }
             if (nDumpArgs.Transform)
             {
                 var transformer = new DataTransformer(nDumpArgs.SqlDiretory, nDumpArgs.CsvDirectory,
-                                                      new ConsoleLogger());
-                transformer.ConvertCsvToSql(dataPlan.DataSelects);
+                                                      consoleLogger);
+                try
+                {
+
+                    transformer.ConvertCsvToSql(dataPlan.DataSelects);
+                    
+                }
+                catch (nDumpApplicationException ex)
+                {
+
+                    consoleLogger.Log("Export To Csv Failed.\n" + ex.StackTrace);
+                    return -1;
+
+                }
             }
             if (nDumpArgs.Import)
             {
-                var importer = new SqlDataImporter(new ConsoleLogger(),
+                var importer = new SqlDataImporter(consoleLogger,
                                                    new QueryExecutor(nDumpArgs.TargetConnectionString),
                                                    nDumpArgs.SqlDiretory);
-                importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
+                try
+                {
+                    importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
+                }
+                catch (nDumpApplicationException ex)
+                {
+
+                    consoleLogger.Log("Import Of Sql Failed.\n" + ex.StackTrace);
+                    return -1;
+
+                }
+                
             }
+            return 0;
         }
     }
 }

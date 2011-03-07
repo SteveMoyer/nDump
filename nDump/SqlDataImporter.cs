@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using nDump;
@@ -46,9 +47,15 @@ namespace nDump
         }
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> selects)
         {
-            DeleteDataFromAllDestinationTables(selects);
-            InsertDataIntoDesinationTables(selects);
-       
+            try
+            {
+                DeleteDataFromAllDestinationTables(selects);
+                InsertDataIntoDesinationTables(selects);
+            }
+            catch (SqlException ex)
+            {
+                throw new nDumpApplicationException(ex.Message,ex);
+            }
         }
     }
 }

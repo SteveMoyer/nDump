@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace nDump
+﻿namespace nDump
 {
-    public class TearDownException : Exception
+    public class TearDownException : nDumpApplicationException
     {
         public TearDownException(string message)
             : base(message)

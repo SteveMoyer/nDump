@@ -8,8 +8,8 @@
     <ProjectGuid>{339F5DB2-53E0-4958-BC0A-79843A5413FB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CsvInserter.Console</RootNamespace>
-    <AssemblyName>CsvInserter.Console</AssemblyName>
+    <RootNamespace>nDumpr.Console</RootNamespace>
+    <AssemblyName>nDump.Console</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
