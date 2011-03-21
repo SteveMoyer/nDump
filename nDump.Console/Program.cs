@@ -14,6 +14,7 @@ namespace nDump.Console
     -sql    sql file directory
     -sourceconnection   source database connection string
     -targetconnection   target database connection string
+    -nofilter           export all data from the source database without filtering
 Sample:
     nDump.exe -f dataPlan.xml -sourceconnection ""server=.;Integrated Security=SSPI;Initial Catalog=mydb"" -csv .\csv\  -sql .\sql\ -targetconnection ""server=.;Integrated Security=SSPI;Initial Catalog=emptymydb"" -e -t -i
 ";
@@ -32,8 +33,12 @@ Sample:
             var consoleLogger = new ConsoleLogger();
             if (nDumpArgs.Export)
             {
+                var queryExecutor = new QueryExecutor(nDumpArgs.SourceConnectionString);
+                ISelectionFilteringStrategy filteringStrategy = nDumpArgs.ApplyFilters ?(ISelectionFilteringStrategy)
+                    new UseFilterIfPresentStrategy(queryExecutor,consoleLogger)
+                    :new IgnoreFilterStrategy();
                 var exporter = new SqlDataExporter(consoleLogger, nDumpArgs.CsvDirectory,
-                                                   new QueryExecutor(nDumpArgs.SourceConnectionString));
+                                                   queryExecutor,filteringStrategy);
                 try
                 {
                     exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);

@@ -62,6 +62,8 @@
     <Compile Include="CsvFileProcessor.cs" />
     <Compile Include="CsvTable.cs" />
     <Compile Include="CsvTableFactory.cs" />
+    <Compile Include="IgnoreFilterStrategy.cs" />
+    <Compile Include="ISelectionFilteringStrategy.cs" />
     <Compile Include="nDumpApplicationException.cs" />
     <Compile Include="TokenJoiner.cs" />
     <Compile Include="CsvToSqlInsertConverter.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="SqlDataImporter.cs" />
     <Compile Include="DataPlan.cs" />
     <Compile Include="DataTransformer.cs" />
+    <Compile Include="UseFilterIfPresentStrategy.cs" />
     <Compile Include="ValueEscapingStrategy.cs" />
     <Compile Include="ICsvProcessor.cs" />
     <Compile Include="ICsvTableFactory.cs" />

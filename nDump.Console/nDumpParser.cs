@@ -11,6 +11,7 @@
             string sqlDirectory = string.Empty;
             string sourceConnection = string.Empty;
             string targetConnection = string.Empty;
+            bool applyFilters = true;
             while (position < args.Length)
             {
                 switch (args[position].ToLower())
@@ -47,10 +48,14 @@
                         targetConnection = args[position + 1];
                         position += 2;
                         break;
+                    case "-nofilter":
+                        applyFilters = false;
+                        position += 1;
+                        break;
                 }
             }
             return new nDumpArgs(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
-                                 targetConnection);
+                                 targetConnection,applyFilters);
         }
     }
 }
