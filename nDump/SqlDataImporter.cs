@@ -9,6 +9,7 @@ namespace nDump
 {
     public class SqlDataImporter
     {
+        private const string SqlFileNameFormat = "{0}{1}_{2:000}.sql";
         private readonly ConsoleLogger _logger;
         private readonly string _sqlScriptDirectory;
         private readonly QueryExecutor _queryExecutor;
@@ -40,9 +41,16 @@ namespace nDump
             foreach (var table in tableSelects)
             {
                 _logger.Log("     " + table.TableName);
-                String script = File.OpenText(_sqlScriptDirectory + table.TableName + ".sql").ReadToEnd();
-                if (!string.IsNullOrWhiteSpace(script))
-                    _queryExecutor.ExecuteNonQueryStatement(script);
+                int i = 1;
+                string path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
+                while (File.Exists(path))
+                {
+                    String script = File.OpenText(path).ReadToEnd();
+                    if (!string.IsNullOrWhiteSpace(script))
+                        _queryExecutor.ExecuteNonQueryStatement(script);
+                    i++;
+                    path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
+                }
             }
         }
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> selects)

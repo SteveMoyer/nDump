@@ -17,14 +17,14 @@ namespace nDump
     public class CsvTable :  ICsvTable
     {
         private readonly CsvReader _csvTextReader;
-        private readonly TextWriter _sqlWriter;
+        private readonly ISqlFileWriter _sqlFileWriter;
         private readonly string _name;
         private readonly bool _hasIdentity;
 
-        public CsvTable(CsvReader csvTextReader, TextWriter sqlWriter, string name, bool hasIdentity)
+        public CsvTable(CsvReader csvTextReader, ISqlFileWriter sqlFileWriter, string name, bool hasIdentity)
         {
             _csvTextReader = csvTextReader;
-            _sqlWriter = sqlWriter;
+            _sqlFileWriter = sqlFileWriter;
             _name = name;
             _hasIdentity = hasIdentity;
         }
@@ -63,13 +63,13 @@ namespace nDump
 
         public void Dispose()
         {
-            _sqlWriter.Close();
+           
             _csvTextReader.Dispose();
         }
 
         public void Write(string outputString)
         {
-            _sqlWriter.Write(outputString);
+            _sqlFileWriter.Write(outputString);
         }
     }
 }

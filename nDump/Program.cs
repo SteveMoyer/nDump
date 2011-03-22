@@ -12,8 +12,9 @@ namespace nDump
             var outputPath = args[1];
             IList<string> tablesWithoutIdentities = new List<string>(args[2].Split(new[] {','}));
             var files = Directory.GetFiles(path);
-     
-            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(5000);
+
+            int numberOfRowsPerInsert = 999;
+            ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(numberOfRowsPerInsert);
             var csvTableFactory = new CsvTableFactory(outputPath,tablesWithoutIdentities);
             ICsvProcessor csvFileProcessor = new CsvFileProcessor(files,csvToSqlInsertConverter, csvTableFactory);
             

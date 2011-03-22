@@ -18,10 +18,10 @@ namespace nDump
         public ICsvTable CreateCsvTable(string file)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-            var writer = new StreamWriter(_outputPath + @"\" + fileNameWithoutExtension + ".sql", false);
+            var filePerStatementSqlFileWriter = new FilePerStatementSqlFileWriter(_outputPath, fileNameWithoutExtension);
             var reader = new CsvReader(File.OpenText(file), true, ',', '\"', '\"', '#',
                                        ValueTrimmingOptions.UnquotedOnly);
-            return new CsvTable(reader, writer, fileNameWithoutExtension,
+            return new CsvTable(reader, filePerStatementSqlFileWriter, fileNameWithoutExtension,
                                 _tablesWithIdentities.Contains(fileNameWithoutExtension.ToLower()));
         }
     }

@@ -62,8 +62,10 @@
     <Compile Include="CsvFileProcessor.cs" />
     <Compile Include="CsvTable.cs" />
     <Compile Include="CsvTableFactory.cs" />
+    <Compile Include="FilePerStatementSqlFileWriter.cs" />
     <Compile Include="IgnoreFilterStrategy.cs" />
     <Compile Include="ISelectionFilteringStrategy.cs" />
+    <Compile Include="ISqlFileWriter.cs" />
     <Compile Include="nDumpApplicationException.cs" />
     <Compile Include="TokenJoiner.cs" />
     <Compile Include="CsvToSqlInsertConverter.cs" />

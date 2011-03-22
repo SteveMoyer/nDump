@@ -21,7 +21,7 @@ namespace nDump
         }
 
         public DataTransformer(string sqlScriptDirectory, string sourceDirectory, ConsoleLogger logger)
-            : this(sqlScriptDirectory, sourceDirectory, logger, new CsvToSqlInsertConverter(5000))
+            : this(sqlScriptDirectory, sourceDirectory, logger, new CsvToSqlInsertConverter(999))
         {
         }
 
