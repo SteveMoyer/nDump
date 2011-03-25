@@ -4,6 +4,7 @@ namespace nDump
 {
     public class SqlTableSelect
     {
+        private  bool _deleteOnly;
         private  List<string> _excludedColumns = new List<string>();
         private  string _tableName;
         private  string _select;
@@ -11,6 +12,12 @@ namespace nDump
 
         public SqlTableSelect()
         {
+        }
+
+
+        public SqlTableSelect(string tableName,bool deleteOnly = false): this(tableName,string.Empty,false)
+        {
+            _deleteOnly = deleteOnly;
         }
 
         public SqlTableSelect(string tableName, string select, bool hasIdentity)
@@ -24,6 +31,12 @@ namespace nDump
             : this(tableName, select, hasIdentity)
         {
             _excludedColumns = excludedColumns;
+        }
+
+        public bool DeleteOnly
+        {
+            get { return _deleteOnly; }
+            set { _deleteOnly = value; }
         }
 
         public List<string> ExcludedColumns

@@ -42,7 +42,7 @@ namespace nDump
         public static DataPlan Load(string fileName)
         {
             var xmlSerializer = new XmlSerializer(typeof (DataPlan));
-            return (DataPlan) xmlSerializer.Deserialize(new FileStream(fileName, FileMode.Open));
+            return (DataPlan) xmlSerializer.Deserialize(new FileStream(fileName, FileMode.Open,FileAccess.Read));
         }
     }
 }

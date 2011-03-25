@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using nDump;
 
 namespace nDump
 {
@@ -40,19 +39,26 @@ namespace nDump
             _logger.Log("Adding Table data to target:");
             foreach (var table in tableSelects)
             {
+                if (table.DeleteOnly) continue;
                 _logger.Log("     " + table.TableName);
-                int i = 1;
-                string path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
-                while (File.Exists(path))
-                {
-                    String script = File.OpenText(path).ReadToEnd();
-                    if (!string.IsNullOrWhiteSpace(script))
-                        _queryExecutor.ExecuteNonQueryStatement(script);
-                    i++;
-                    path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
-                }
+                RunAllScriptFilesFor(table);
             }
         }
+
+        private void RunAllScriptFilesFor(SqlTableSelect table)
+        {
+            int i = 1;
+            string path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
+            while (File.Exists(path))
+            {
+                String script = File.OpenText(path).ReadToEnd();
+                if (!string.IsNullOrWhiteSpace(script))
+                    _queryExecutor.ExecuteNonQueryStatement(script);
+                i++;
+                path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
+            }
+        }
+
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> selects)
         {
             try
@@ -62,7 +68,7 @@ namespace nDump
             }
             catch (SqlException ex)
             {
-                throw new nDumpApplicationException(ex.Message,ex);
+                throw new nDumpApplicationException(ex.Message, ex);
             }
         }
     }

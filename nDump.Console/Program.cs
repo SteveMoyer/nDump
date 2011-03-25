@@ -82,7 +82,7 @@ Sample:
                 catch (nDumpApplicationException ex)
                 {
 
-                    consoleLogger.Log("Import Of Sql Failed.\n" + ex.StackTrace);
+                    consoleLogger.Log("Import Of Sql Failed.\n" +ex.Message +"\n" + ex.StackTrace);
                     return -1;
 
                 }
