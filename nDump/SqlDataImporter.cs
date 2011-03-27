@@ -9,11 +9,11 @@ namespace nDump
     public class SqlDataImporter
     {
         private const string SqlFileNameFormat = "{0}{1}_{2:000}.sql";
-        private readonly ConsoleLogger _logger;
+        private readonly ILogger _logger;
         private readonly string _sqlScriptDirectory;
         private readonly QueryExecutor _queryExecutor;
 
-        public SqlDataImporter(ConsoleLogger logger, QueryExecutor queryExecutor, string sqlScriptDirectory)
+        public SqlDataImporter(ILogger logger, QueryExecutor queryExecutor, string sqlScriptDirectory)
         {
             _logger = logger;
             _sqlScriptDirectory = sqlScriptDirectory;

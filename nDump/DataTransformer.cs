@@ -6,12 +6,12 @@ namespace nDump
 {
     public class DataTransformer
     {
-        private readonly ConsoleLogger _logger;
+        private readonly ILogger _logger;
         private readonly string _sourceDirectory;
         private readonly string _sqlScriptDirectory;
         private readonly ICsvToSqlInsertConverter _csvToSqlInsertConverter;
 
-        public DataTransformer(string sqlScriptDirectory, string sourceDirectory, ConsoleLogger logger,
+        public DataTransformer(string sqlScriptDirectory, string sourceDirectory, ILogger logger,
                                ICsvToSqlInsertConverter csvToSqlInsertConverter)
         {
             _sqlScriptDirectory = sqlScriptDirectory;
@@ -20,7 +20,7 @@ namespace nDump
             _csvToSqlInsertConverter = csvToSqlInsertConverter;
         }
 
-        public DataTransformer(string sqlScriptDirectory, string sourceDirectory, ConsoleLogger logger)
+        public DataTransformer(string sqlScriptDirectory, string sourceDirectory, ILogger logger)
             : this(sqlScriptDirectory, sourceDirectory, logger, new CsvToSqlInsertConverter(999))
         {
         }
@@ -33,7 +33,7 @@ namespace nDump
                     tableSelect => tableSelect.TableName.ToLower()).ToList();
             var files = Directory.GetFiles(_sourceDirectory);
 
-            var csvTableFactory = new CsvTableFactory(_sqlScriptDirectory, tablesWithIdentities);
+            var csvTableFactory = new CsvTableFactory(_sqlScriptDirectory, tablesWithIdentities,_logger);
             ICsvProcessor csvFileProcessor = new CsvFileProcessor(files, _csvToSqlInsertConverter, csvTableFactory);
 
             csvFileProcessor.Process();

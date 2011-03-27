@@ -15,7 +15,7 @@ namespace nDump
 
             int numberOfRowsPerInsert = 999;
             ICsvToSqlInsertConverter csvToSqlInsertConverter = new CsvToSqlInsertConverter(numberOfRowsPerInsert);
-            var csvTableFactory = new CsvTableFactory(outputPath,tablesWithoutIdentities);
+            var csvTableFactory = new CsvTableFactory(outputPath,tablesWithoutIdentities, new ConsoleLogger());
             ICsvProcessor csvFileProcessor = new CsvFileProcessor(files,csvToSqlInsertConverter, csvTableFactory);
             
             csvFileProcessor.Process();

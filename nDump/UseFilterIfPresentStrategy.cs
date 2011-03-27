@@ -6,9 +6,9 @@ namespace nDump
     public class UseFilterIfPresentStrategy : ISelectionFilteringStrategy
     {
         private readonly QueryExecutor _queryExecutor;
-        private readonly ConsoleLogger _logger;
+        private readonly ILogger _logger;
 
-        public UseFilterIfPresentStrategy(QueryExecutor queryExecutor, ConsoleLogger logger)
+        public UseFilterIfPresentStrategy(QueryExecutor queryExecutor, ILogger logger)
         {
             _queryExecutor = queryExecutor;
             _logger = logger;

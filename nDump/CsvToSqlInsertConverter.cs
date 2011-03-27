@@ -34,38 +34,43 @@ namespace nDump
             GenerateInserts(csvTable);
         }
 
-        private string GenerateInserts(ICsvTable csvTable)
+        private void GenerateInserts(ICsvTable csvTable)
         {
             string insertHeader = string.Format(InsertHeaderFormat, _headerEscapingStrategy.Escape(csvTable.Name),
                                                 _tokenJoiner.Join(
                                                     _headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
             var builder = new StringBuilder();
-
+            StartFile(csvTable,builder,insertHeader);
             int i = 0;
 
             string separator = string.Empty;
             while (csvTable.ReadNextRow())
             {
-                if (i%_numberOfRowsPerInsert == 0)
+                if (i!=0 && i%_numberOfRowsPerInsert == 0)
                 {
                     EndFile(csvTable, builder);
-                    builder = new StringBuilder();
-                    TurnOnIdentityInsert(csvTable, builder);
-                    builder.Append(insertHeader);
+                    StartFile(csvTable, builder, insertHeader);
                     separator = string.Empty;
                 }
                 InsertRow(csvTable, builder, separator);
                 separator = ",";
                 i++;
             }
-            EndFile(csvTable, builder);
-            return builder.ToString();
+            if (i != 0) EndFile(csvTable, builder);
+            
+        }
+
+        private void StartFile(ICsvTable csvTable, StringBuilder builder, string insertHeader)
+        {
+            TurnOnIdentityInsert(csvTable, builder);
+            builder.Append(insertHeader);
         }
 
         private void EndFile(ICsvTable csvTable, StringBuilder builder)
         {
             TurnOffIdentityInsert(csvTable, builder);
             csvTable.Write(builder.ToString());
+            builder.Clear();
         }
 
         private void InsertRow(ICsvTable csvTable, StringBuilder builder, string separator)
