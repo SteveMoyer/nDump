@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using FileHelpers;
 
 namespace nDump
@@ -39,6 +40,11 @@ namespace nDump
         public void GenerateCsvs(List<SqlTableSelect> selects)
         {
             _logger.Log("Generating Csv:");
+            if (!Directory.Exists(_destinationDirectory))
+            {
+                Directory.CreateDirectory(_destinationDirectory);
+                _logger.Log(_destinationDirectory +" did not exist: creating\n");
+            }
 
             foreach (var table in selects)
             {

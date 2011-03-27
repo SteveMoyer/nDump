@@ -21,7 +21,7 @@ namespace nDump
             if (!Directory.Exists(_directory))
             {
                 Directory.CreateDirectory(_directory);
-                _logger.Log(_directory + " did not exist: creating");
+                _logger.Log(_directory + " did not exist: creating\n");
             }
 
 
