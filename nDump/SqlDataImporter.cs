@@ -51,6 +51,7 @@ namespace nDump
             string path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
             while (File.Exists(path))
             {
+                _logger.Log(i.ToString() +"\n");
                 String script = File.OpenText(path).ReadToEnd();
                 if (!string.IsNullOrWhiteSpace(script))
                     _queryExecutor.ExecuteNonQueryStatement(script);

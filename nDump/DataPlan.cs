@@ -17,7 +17,7 @@ namespace nDump
             _dataSelects = dataSelects;
         }
 
-        public DataPlan()
+        public DataPlan(): this(new List<SqlTableSelect>(),new List<SqlTableSelect>() )
         {
         }
 

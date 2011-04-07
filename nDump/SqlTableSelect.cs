@@ -4,6 +4,10 @@ namespace nDump
 {
     public class SqlTableSelect
     {
+        public override string ToString()
+        {
+            return _tableName;
+        }
         private  bool _deleteOnly;
         private  List<string> _excludedColumns = new List<string>();
         private  string _tableName;

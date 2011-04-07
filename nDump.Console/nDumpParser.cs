@@ -52,6 +52,9 @@
                         applyFilters = false;
                         position += 1;
                         break;
+                    default:
+                        position += 1;
+                        break;
                 }
             }
             return new nDumpArgs(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,

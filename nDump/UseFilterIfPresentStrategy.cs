@@ -9,14 +9,14 @@ namespace nDump
         private readonly ILogger _logger;
 
         public UseFilterIfPresentStrategy(QueryExecutor queryExecutor, ILogger logger)
-        {
+        {   
             _queryExecutor = queryExecutor;
             _logger = logger;
         }
 
         public string GetFilteredSelectStatement(SqlTableSelect table)
         {
-            return table.Select != string.Empty ? table.Select : "select * from " + table.TableName;
+            return !String.IsNullOrWhiteSpace(table.Select ) ? table.Select : "select * from " + table.TableName;
         }
 
         public void SetupFilterTables(List<SqlTableSelect> filtertableSelects)
