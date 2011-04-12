@@ -47,5 +47,13 @@ namespace nDump.Unit
 
             Assert.AreEqual("other", escaped);
         }
+        [Test]
+        public void ShouldEscapeOnlyKeyword()
+        {
+            var g = new ColumnHeaderKeywordEscapingStrategy();
+            var escaped = g.Escape(new string[] {"other","database"});
+
+            Assert.AreEqual(new string[]{"other","[database]"}, escaped);
+        }
     }
 }

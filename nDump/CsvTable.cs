@@ -1,19 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using LumenWorks.Framework.IO.Csv;
 
 namespace nDump
 {
-    public interface ICsvTable : IDisposable
-    {
-        string Name { get; }
-        bool HasIdentity { get; }
-        string[] GetColumnNames();
-        bool ReadNextRow();
-        string[] GetValues();
-        void Write(string outputString);
-    }
-
     public class CsvTable :  ICsvTable
     {
         private readonly CsvReader _csvTextReader;

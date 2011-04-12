@@ -28,7 +28,7 @@ namespace nDump
         public void ConvertCsvToSql(List<SqlTableSelect> sqlTableSelects)
         {
             _logger.Log("ConvertingCsvFilesToSql");
-            IList<string> tablesWithIdentities =
+            IList<string> tablesWithIdentities= 
                 sqlTableSelects.Where(@select => @select.HasIdentity).Select(
                     tableSelect => tableSelect.TableName.ToLower()).ToList();
             var files = Directory.GetFiles(_sourceDirectory);

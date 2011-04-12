@@ -63,6 +63,7 @@
     <Compile Include="CsvTable.cs" />
     <Compile Include="CsvTableFactory.cs" />
     <Compile Include="FilePerStatementSqlFileWriter.cs" />
+    <Compile Include="ICsvTable.cs" />
     <Compile Include="IgnoreFilterStrategy.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="ISelectionFilteringStrategy.cs" />

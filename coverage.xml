@@ -1,0 +1,6 @@
+<PartCoverSettings>
+  <Target>C:\Program Files (x86)\NUnit 2.5.7\bin\net-2.0\nunit-console-x86.exe</Target>
+  <TargetWorkDir>C:\projects\nDump\nDump.Unit\bin\Debug</TargetWorkDir>
+  <TargetArgs>nDump.Unit.dll</TargetArgs>
+  <Rule>+[nDump]*</Rule>
+</PartCoverSettings>

@@ -1,0 +1,15 @@
+2011-04-08 22:25:07,573 [1] INFO  PartCover.Browser.MainEntry [(null)] - search for features
+2011-04-08 22:25:07,743 [1] INFO  PartCover.Browser.FeatureSeeker [(null)] - seek for features in PartCover.Browser, Version=2.3.0.36320, Culture=neutral, PublicKeyToken=null
+2011-04-08 22:25:08,103 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.BrowserFormFeature
+2011-04-08 22:25:08,105 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.FeatureViewCoverage
+2011-04-08 22:25:08,105 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.CoverageReportService
+2011-04-08 22:28:21,430 [1] INFO  PartCover.Browser.MainEntry [(null)] - search for features
+2011-04-08 22:28:21,436 [1] INFO  PartCover.Browser.FeatureSeeker [(null)] - seek for features in PartCover.Browser, Version=2.3.0.36320, Culture=neutral, PublicKeyToken=null
+2011-04-08 22:28:21,456 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.BrowserFormFeature
+2011-04-08 22:28:21,456 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.FeatureViewCoverage
+2011-04-08 22:28:21,456 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.CoverageReportService
+2011-04-09 21:38:25,985 [1] INFO  PartCover.Browser.MainEntry [(null)] - search for features
+2011-04-09 21:38:25,996 [1] INFO  PartCover.Browser.FeatureSeeker [(null)] - seek for features in PartCover.Browser, Version=2.3.0.36320, Culture=neutral, PublicKeyToken=null
+2011-04-09 21:38:26,007 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.BrowserFormFeature
+2011-04-09 21:38:26,008 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.FeatureViewCoverage
+2011-04-09 21:38:26,008 [1] INFO  PartCover.Browser.MainEntry [(null)] - register feature: PartCover.Browser.Features.CoverageReportService
