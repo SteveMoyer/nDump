@@ -10,10 +10,10 @@ namespace nDump
         private const string DontCare = "blah";
         private readonly ILogger _logger;
         private readonly string _destinationDirectory;
-        private readonly QueryExecutor _queryExecutor;
+        private readonly IQueryExecutor _queryExecutor;
         private readonly ISelectionFilteringStrategy _selectionFilteringStrategy;
 
-        public SqlDataExporter(ILogger logger, string destinationDirectory, QueryExecutor queryExecutor,
+        public SqlDataExporter(ILogger logger, string destinationDirectory, IQueryExecutor queryExecutor,
                                ISelectionFilteringStrategy selectionFilteringStrategy)
         {
             _logger = logger;

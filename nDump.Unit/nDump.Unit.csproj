@@ -50,6 +50,8 @@
     <Compile Include="CsvFileProcessorTest.cs" />
     <Compile Include="CsvTableTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlDataImporterTest.cs" />
+    <Compile Include="UseFilterIfPresentStrategyTest.cs" />
     <Compile Include="ValueEscapingStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>

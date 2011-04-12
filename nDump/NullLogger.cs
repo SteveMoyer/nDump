@@ -1,6 +1,6 @@
 ﻿namespace nDump
 {
-    class NullLogger : ILogger
+    public class NullLogger : ILogger
     {
         public void Log(string message)
         {

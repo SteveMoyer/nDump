@@ -1,11 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace nDump
 {
     public class CsvToSqlInsertConverter : ICsvToSqlInsertConverter
     {
         private readonly int _numberOfRowsPerInsert;
-        private readonly TokenJoiner _tokenJoiner;
         private readonly IEscapingStrategy _headerEscapingStrategy;
         private readonly IEscapingStrategy _valueEscapingStrategy;
         private const string InsertHeaderFormat = "insert {0} ({1}) values\n";
@@ -14,16 +14,15 @@ namespace nDump
         private const string Off = "off";
         private const string On = "on";
 
-        public CsvToSqlInsertConverter(TokenJoiner tokenJoiner, IEscapingStrategy headerEscapingStrategy,
+        public CsvToSqlInsertConverter(IEscapingStrategy headerEscapingStrategy,
                                        IEscapingStrategy valueEscapingStrategy)
         {
-            _tokenJoiner = tokenJoiner;
             _headerEscapingStrategy = headerEscapingStrategy;
             _valueEscapingStrategy = valueEscapingStrategy;
         }
 
         public CsvToSqlInsertConverter(int numberOfRowsPerInsert)
-            : this(new TokenJoiner(), new ColumnHeaderKeywordEscapingStrategy(),
+            : this(new ColumnHeaderKeywordEscapingStrategy(),
                    new ValueEscapingStrategy())
         {
             _numberOfRowsPerInsert = numberOfRowsPerInsert;
@@ -37,16 +36,16 @@ namespace nDump
         private void GenerateInserts(ICsvTable csvTable)
         {
             string insertHeader = string.Format(InsertHeaderFormat, _headerEscapingStrategy.Escape(csvTable.Name),
-                                                _tokenJoiner.Join(
-                                                    _headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
+                                                String.Join(",",
+                                                            _headerEscapingStrategy.Escape(csvTable.GetColumnNames())));
             var builder = new StringBuilder();
-            StartFile(csvTable,builder,insertHeader);
+            StartFile(csvTable, builder, insertHeader);
             int i = 0;
 
             string separator = string.Empty;
             while (csvTable.ReadNextRow())
             {
-                if (i!=0 && i%_numberOfRowsPerInsert == 0)
+                if (i != 0 && i%_numberOfRowsPerInsert == 0)
                 {
                     EndFile(csvTable, builder);
                     StartFile(csvTable, builder, insertHeader);
@@ -57,7 +56,6 @@ namespace nDump
                 i++;
             }
             if (i != 0) EndFile(csvTable, builder);
-            
         }
 
         private void StartFile(ICsvTable csvTable, StringBuilder builder, string insertHeader)
@@ -75,7 +73,7 @@ namespace nDump
 
         private void InsertRow(ICsvTable csvTable, StringBuilder builder, string separator)
         {
-            string insertValues = _tokenJoiner.Join(_valueEscapingStrategy.Escape(csvTable.GetValues()));
+            string insertValues = String.Join(",", _valueEscapingStrategy.Escape(csvTable.GetValues()));
             builder.AppendFormat(InsertFormat, separator, insertValues);
         }
 

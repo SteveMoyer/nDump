@@ -7,12 +7,12 @@
         private readonly bool _import;
         private readonly string _file;
         private readonly string _csvDirectory;
-        private readonly string _sqlDiretory;
+        private readonly string _sqlDirectory;
         private readonly string _sourceConnectionString;
         private string _targetConnectionString;
         private readonly bool _applyFilters;
 
-        public nDumpArgs(bool export, bool transform, bool import, string file, string csvDirectory, string sqlDiretory, string sourceConnectionString, string targetConnectionString, bool applyFilters)
+        public nDumpArgs(bool export, bool transform, bool import, string file, string csvDirectory, string sqlDirectory, string sourceConnectionString, string targetConnectionString, bool applyFilters)
         {
             _export = export;
             _targetConnectionString = targetConnectionString;
@@ -22,7 +22,7 @@
             _import = import;
             _file = file;
             _csvDirectory = csvDirectory;
-            _sqlDiretory = sqlDiretory;
+            _sqlDirectory = sqlDirectory;
         }
 
         public bool ApplyFilters
@@ -30,9 +30,9 @@
             get { return _applyFilters; }
         }
 
-        public string SqlDiretory
+        public string SqlDirectory
         {
-            get { return _sqlDiretory; }
+            get { return _sqlDirectory; }
         }
 
         public string CsvDirectory

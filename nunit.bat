@@ -1,0 +1,1 @@
+.\lib\nunit-console-x86.exe .\nDump.Unit\bin\debug\nDump.Unit.dll

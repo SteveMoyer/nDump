@@ -5,10 +5,11 @@ namespace nDump
 {
     public class UseFilterIfPresentStrategy : ISelectionFilteringStrategy
     {
-        private readonly QueryExecutor _queryExecutor;
+        public const string DropTableSqlFormat = "drop table {0}";
+        private readonly IQueryExecutor _queryExecutor;
         private readonly ILogger _logger;
 
-        public UseFilterIfPresentStrategy(QueryExecutor queryExecutor, ILogger logger)
+        public UseFilterIfPresentStrategy(IQueryExecutor queryExecutor, ILogger logger)
         {   
             _queryExecutor = queryExecutor;
             _logger = logger;
@@ -39,7 +40,7 @@ namespace nDump
                 _logger.Log("     " + table.TableName);
                 try
                 {
-                    _queryExecutor.ExecuteNonQueryStatement("drop table " + table.TableName);
+                    _queryExecutor.ExecuteNonQueryStatement(String.Format(DropTableSqlFormat, table.TableName));
                 }
                 catch (Exception)
                 {

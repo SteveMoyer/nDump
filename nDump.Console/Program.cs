@@ -54,7 +54,7 @@ Sample:
             }
             if (nDumpArgs.Transform)
             {
-                var transformer = new DataTransformer(nDumpArgs.SqlDiretory, nDumpArgs.CsvDirectory,
+                var transformer = new DataTransformer(nDumpArgs.SqlDirectory, nDumpArgs.CsvDirectory,
                                                       consoleLogger);
                 try
                 {
@@ -73,8 +73,7 @@ Sample:
             if (nDumpArgs.Import)
             {
                 var importer = new SqlDataImporter(consoleLogger,
-                                                   new QueryExecutor(nDumpArgs.TargetConnectionString),
-                                                   nDumpArgs.SqlDiretory);
+                                                   new QueryExecutor(nDumpArgs.TargetConnectionString), new IncrementingNumberSqlScriptFileStrategy(nDumpArgs.SqlDirectory));
                 try
                 {
                     importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);

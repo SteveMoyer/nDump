@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 
 namespace nDump
@@ -10,13 +9,13 @@ namespace nDump
     {
         private const string SqlFileNameFormat = "{0}{1}_{2:000}.sql";
         private readonly ILogger _logger;
-        private readonly string _sqlScriptDirectory;
-        private readonly QueryExecutor _queryExecutor;
+        private readonly ISqlScriptFileStrategy _sqlScriptFileStrategy;
+        private readonly IQueryExecutor _queryExecutor;
 
-        public SqlDataImporter(ILogger logger, QueryExecutor queryExecutor, string sqlScriptDirectory)
+        public SqlDataImporter(ILogger logger, IQueryExecutor queryExecutor,ISqlScriptFileStrategy sqlScriptFileStrategy)
         {
             _logger = logger;
-            _sqlScriptDirectory = sqlScriptDirectory;
+            _sqlScriptFileStrategy = sqlScriptFileStrategy;
             _queryExecutor = queryExecutor;
         }
 
@@ -34,10 +33,8 @@ namespace nDump
 
         public void InsertDataIntoDesinationTables(List<SqlTableSelect> selects)
         {
-            List<SqlTableSelect> tableSelects = selects.ToList();
-
             _logger.Log("Adding Table data to target:");
-            foreach (var table in tableSelects)
+            foreach (var table in selects.ToList())
             {
                 if (table.DeleteOnly) continue;
                 _logger.Log("     " + table.TableName);
@@ -47,17 +44,20 @@ namespace nDump
 
         private void RunAllScriptFilesFor(SqlTableSelect table)
         {
-            int i = 1;
-            string path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
-            while (File.Exists(path))
+            
+            IEnumerator<SqlScript> scriptEnumerator = _sqlScriptFileStrategy.GetEnumeratorFor(table.TableName);
+            while (scriptEnumerator.MoveNext())
             {
-                _logger.Log(i.ToString() +"\n");
-                String script = File.OpenText(path).ReadToEnd();
-                if (!string.IsNullOrWhiteSpace(script))
-                    _queryExecutor.ExecuteNonQueryStatement(script);
-                i++;
-                path = String.Format(SqlFileNameFormat, _sqlScriptDirectory, table.TableName, i);
+                var script = scriptEnumerator.Current;
+                ExecuteScriptIfNotEmpty(script);
             }
+        }
+
+        private void ExecuteScriptIfNotEmpty(SqlScript script)
+        {
+            _logger.Log(script.Name + "\n");
+            if (!string.IsNullOrWhiteSpace(script.Script))
+                _queryExecutor.ExecuteNonQueryStatement(script.Script);
         }
 
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> selects)

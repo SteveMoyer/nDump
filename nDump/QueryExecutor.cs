@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace nDump
 {
-    public class QueryExecutor
+    public class QueryExecutor : IQueryExecutor
     {
         private readonly string _connectionString;
 
