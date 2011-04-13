@@ -32,9 +32,9 @@ namespace nDump.GUI
                 if (File.Exists(dataPlanOpenFileDialog.FileName))
                 {
                     _file = dataPlanOpenFileDialog.FileName;
-                    _dataPlan = DataPlan.Load(dataPlanOpenFileDialog.FileName);
                     this.Text = _file;
-                    dataPlanPropertyGrid.SelectedObject = _dataPlan;
+                    LoadDataPlan( DataPlan.Load(dataPlanOpenFileDialog.FileName));
+                    
                 }
             }
             catch (Exception ex)
@@ -55,7 +55,12 @@ namespace nDump.GUI
 
             if (String.IsNullOrEmpty(_file))
             {
-                dataPlanSaveFileDialog.ShowDialog();
+                if (dataPlanSaveFileDialog.ShowDialog() == DialogResult.Cancel || string.IsNullOrWhiteSpace(dataPlanSaveFileDialog.FileName))
+                {
+                    return;
+                }
+                _file = dataPlanSaveFileDialog.FileName;
+
             }
             _dataPlan.Save(_file);
         }
@@ -68,7 +73,24 @@ namespace nDump.GUI
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             _file = string.Empty;
-            _dataPlan=new DataPlan();
+            LoadDataPlan(_dataPlan);
+        }
+
+        private void addTablesFromDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ImportTablesForm(_dataPlan.DataSelects).ShowDialog();
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            LoadDataPlan( new DataPlan());
+        }
+
+        private void LoadDataPlan(DataPlan dataPlan)
+        {
+            _dataPlan=dataPlan;
+            dataPlanPropertyGrid.SelectedObject = _dataPlan;
         }
     }
 }

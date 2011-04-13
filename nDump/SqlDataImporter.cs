@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -7,12 +6,12 @@ namespace nDump
 {
     public class SqlDataImporter
     {
-        private const string SqlFileNameFormat = "{0}{1}_{2:000}.sql";
         private readonly ILogger _logger;
         private readonly ISqlScriptFileStrategy _sqlScriptFileStrategy;
         private readonly IQueryExecutor _queryExecutor;
 
-        public SqlDataImporter(ILogger logger, IQueryExecutor queryExecutor,ISqlScriptFileStrategy sqlScriptFileStrategy)
+        public SqlDataImporter(ILogger logger, IQueryExecutor queryExecutor,
+                               ISqlScriptFileStrategy sqlScriptFileStrategy)
         {
             _logger = logger;
             _sqlScriptFileStrategy = sqlScriptFileStrategy;
@@ -44,7 +43,6 @@ namespace nDump
 
         private void RunAllScriptFilesFor(SqlTableSelect table)
         {
-            
             IEnumerator<SqlScript> scriptEnumerator = _sqlScriptFileStrategy.GetEnumeratorFor(table.TableName);
             while (scriptEnumerator.MoveNext())
             {

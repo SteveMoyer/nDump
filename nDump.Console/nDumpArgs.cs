@@ -1,4 +1,6 @@
-﻿namespace nDump.Console
+﻿// ReSharper disable CheckNamespace
+namespace nDump.Console
+// ReSharper restore CheckNamespace
 {
     internal class nDumpArgs
     {
@@ -9,10 +11,11 @@
         private readonly string _csvDirectory;
         private readonly string _sqlDirectory;
         private readonly string _sourceConnectionString;
-        private string _targetConnectionString;
+        private readonly string _targetConnectionString;
         private readonly bool _applyFilters;
 
-        public nDumpArgs(bool export, bool transform, bool import, string file, string csvDirectory, string sqlDirectory, string sourceConnectionString, string targetConnectionString, bool applyFilters)
+        public nDumpArgs(bool export, bool transform, bool import, string file, string csvDirectory, string sqlDirectory,
+                         string sourceConnectionString, string targetConnectionString, bool applyFilters)
         {
             _export = export;
             _targetConnectionString = targetConnectionString;

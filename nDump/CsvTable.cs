@@ -1,9 +1,8 @@
-﻿using System.IO;
-using LumenWorks.Framework.IO.Csv;
+﻿using LumenWorks.Framework.IO.Csv;
 
 namespace nDump
 {
-    public class CsvTable :  ICsvTable
+    public class CsvTable : ICsvTable
     {
         private readonly CsvReader _csvTextReader;
         private readonly ISqlFileWriter _sqlFileWriter;
@@ -52,7 +51,6 @@ namespace nDump
 
         public void Dispose()
         {
-           
             _csvTextReader.Dispose();
         }
 
