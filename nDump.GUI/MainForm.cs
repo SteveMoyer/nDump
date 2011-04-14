@@ -32,9 +32,8 @@ namespace nDump.GUI
                 if (File.Exists(dataPlanOpenFileDialog.FileName))
                 {
                     _file = dataPlanOpenFileDialog.FileName;
-                    this.Text = _file;
-                    LoadDataPlan( DataPlan.Load(dataPlanOpenFileDialog.FileName));
-                    
+                    Text = _file;
+                    LoadDataPlan(DataPlan.Load(dataPlanOpenFileDialog.FileName));
                 }
             }
             catch (Exception ex)
@@ -50,17 +49,16 @@ namespace nDump.GUI
                                                  Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*",
                                                  FilterIndex = 1,
                                                  RestoreDirectory = true
-                                                
                                              };
 
             if (String.IsNullOrEmpty(_file))
             {
-                if (dataPlanSaveFileDialog.ShowDialog() == DialogResult.Cancel || string.IsNullOrWhiteSpace(dataPlanSaveFileDialog.FileName))
+                if (dataPlanSaveFileDialog.ShowDialog() == DialogResult.Cancel ||
+                    string.IsNullOrWhiteSpace(dataPlanSaveFileDialog.FileName))
                 {
                     return;
                 }
                 _file = dataPlanSaveFileDialog.FileName;
-
             }
             _dataPlan.Save(_file);
         }
@@ -79,18 +77,22 @@ namespace nDump.GUI
         private void addTablesFromDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ImportTablesForm(_dataPlan.DataSelects).ShowDialog();
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            LoadDataPlan( new DataPlan());
+            LoadDataPlan(new DataPlan());
         }
 
         private void LoadDataPlan(DataPlan dataPlan)
         {
-            _dataPlan=dataPlan;
+            _dataPlan = dataPlan;
             dataPlanPropertyGrid.SelectedObject = _dataPlan;
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ExportForm(_dataPlan).ShowDialog();
         }
     }
 }

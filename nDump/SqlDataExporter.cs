@@ -48,18 +48,24 @@ namespace nDump
 
             foreach (var table in selects)
             {
-                _logger.Log("     " + table.TableName);
-                var select = _selectionFilteringStrategy.GetFilteredSelectStatement(table);
-                DataTable results =
-                    _queryExecutor.ExecuteSelectStatement(select);
-                foreach (var column in table.ExcludedColumns)
-                {
-                    results.Columns.Remove(column);
-                }
-
-                var csvOptions = new CsvOptions(DontCare, ',', results.Columns.Count) {DateFormat = "g"};
-                CsvEngine.DataTableToCsv(results, _destinationDirectory + table.TableName.ToLower() + ".csv", csvOptions);
+                if(table.DeleteOnly) continue;
+                GenerateCsv(table);
             }
+        }
+
+        private void GenerateCsv(SqlTableSelect table)
+        {
+            _logger.Log("     " + table.TableName);
+            var select = _selectionFilteringStrategy.GetFilteredSelectStatement(table);
+            DataTable results =
+                _queryExecutor.ExecuteSelectStatement(select);
+            foreach (var column in table.ExcludedColumns)
+            {
+                results.Columns.Remove(column);
+            }
+
+            var csvOptions = new CsvOptions(DontCare, ',', results.Columns.Count) {DateFormat = "g"};
+            CsvEngine.DataTableToCsv(results, _destinationDirectory + table.TableName.ToLower() + ".csv", csvOptions);
         }
     }
 }

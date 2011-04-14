@@ -49,7 +49,7 @@ namespace nDump.GUI
         {
             foreach (var tableName in tableListBox.SelectedItems)
             {
-                _csvTables.Add(new SqlTableSelect(tableName.ToString()));
+                _csvTables.Add(new SqlTableSelect(tableName.ToString(),true));
 
             }
             Close();

@@ -33,13 +33,14 @@
             this.loadButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.tableListBox = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // connectionTextBox
             // 
             this.connectionTextBox.Location = new System.Drawing.Point(86, 12);
             this.connectionTextBox.Name = "connectionTextBox";
-            this.connectionTextBox.Size = new System.Drawing.Size(194, 20);
+            this.connectionTextBox.Size = new System.Drawing.Size(311, 20);
             this.connectionTextBox.TabIndex = 0;
             this.connectionTextBox.Text = "server=.;Integrated Security=SSPI;Initial Catalog=mydb";
             // 
@@ -64,7 +65,7 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(205, 236);
+            this.addButton.Location = new System.Drawing.Point(205, 319);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 3;
@@ -75,17 +76,29 @@
             // tableListBox
             // 
             this.tableListBox.FormattingEnabled = true;
-            this.tableListBox.Location = new System.Drawing.Point(15, 70);
+            this.tableListBox.Location = new System.Drawing.Point(15, 114);
             this.tableListBox.Name = "tableListBox";
             this.tableListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.tableListBox.Size = new System.Drawing.Size(265, 160);
+            this.tableListBox.Size = new System.Drawing.Size(382, 199);
             this.tableListBox.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(23, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(257, 47);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Tables will be imported as DeleteOnly and won\'t be exported or imported until con" +
+                "figured otherwise.";
             // 
             // ImportTablesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.ClientSize = new System.Drawing.Size(409, 354);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.tableListBox);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.loadButton);
@@ -105,5 +118,6 @@
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.ListBox tableListBox;
+        private System.Windows.Forms.Label label2;
     }
 }

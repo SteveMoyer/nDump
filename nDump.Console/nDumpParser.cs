@@ -2,7 +2,7 @@
 {
     internal class nDumpParser
     {
-        public nDumpArgs Parse(string[] args)
+        public nDumpOptions Parse(string[] args)
         {
             int position = 0;
             bool export = false, import = false, transform = false;
@@ -57,7 +57,7 @@
                         break;
                 }
             }
-            return new nDumpArgs(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
+            return new nDumpOptions(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
                                  targetConnection,applyFilters);
         }
     }

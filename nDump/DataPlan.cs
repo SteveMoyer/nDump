@@ -36,13 +36,15 @@ namespace nDump
         public void Save(string fileName)
         {
             var xmlSerializer = new XmlSerializer(typeof (DataPlan));
-            xmlSerializer.Serialize(new FileStream(fileName, FileMode.Create), this);
+            using(var textWriter = new FileStream(fileName, FileMode.Create))
+                xmlSerializer.Serialize(textWriter, this);
         }
 
         public static DataPlan Load(string fileName)
         {
             var xmlSerializer = new XmlSerializer(typeof (DataPlan));
-            return (DataPlan) xmlSerializer.Deserialize(new FileStream(fileName, FileMode.Open,FileAccess.Read));
+            using(var fileStream = new FileStream(fileName, FileMode.Open,FileAccess.Read))
+                return (DataPlan) xmlSerializer.Deserialize(fileStream);
         }
     }
 }
