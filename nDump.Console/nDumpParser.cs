@@ -12,10 +12,13 @@
             string sourceConnection = string.Empty;
             string targetConnection = string.Empty;
             bool applyFilters = true;
+            string options = string.Empty;
             while (position < args.Length)
             {
                 switch (args[position].ToLower())
                 {
+                    case "-?": case "/?": case "-h":case"/h":
+                        throw new nDumpConfigurationException();
                     case "-e":
                         export = true;
                         position++;
@@ -28,10 +31,15 @@
                         import = true;
                         position++;
                         break;
-                    case "-f":
+                    case "-f": case "-dp":
                         file = args[position + 1];
                         position += 2;
                         break;
+                        case "-o":
+                        options = args[position + 1];
+                        position += 2;
+                        break;
+                    
                     case "-csv":
                         csvDirectory = args[position + 1];
                         position += 2;
@@ -53,9 +61,14 @@
                         position += 1;
                         break;
                     default:
-                        position += 1;
-                        break;
+                        throw new nDumpConfigurationException("Invalid argument supplied, see usage below.\n");
                 }
+            }
+            if (!string.IsNullOrEmpty(options))
+            {
+                nDumpOptions nDumpOptions = nDumpOptions.Load(options);
+                nDumpOptions.File = file;
+                return nDumpOptions;
             }
             return new nDumpOptions(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
                                  targetConnection,applyFilters);

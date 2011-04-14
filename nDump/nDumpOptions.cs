@@ -54,7 +54,7 @@ namespace nDump
             set { _csvDirectory = value; }
         }
 
-        public string File1
+        public string File
         {
             get { return _file; }
             set { _file = value; }
