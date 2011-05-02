@@ -41,17 +41,37 @@ Task: Run Functional Tests
 
 nDump.Console.exe
 Usage:
-    -e      Export (requires -sourceconnection and -csv)
-    -i      Import (requires -sql and -targetconnection)
-    -t      transform (requires -csv and -sql)
-    -f      data plan file (required)
-    -csv    csv file directory
-    -sql    sql file directory
-    -sourceconnection   source database connection string
-    -targetconnection   target database connection string
-Sample:
-    nDump.Console.exe -f dataPlan.xml -sourceconnection "server=.;Integrated Security=SSPI;Initial Catalog=mydb" -csv .\csv\  -sql .\sql\ -targetconnection "server=.;Integrated Security=SSPI;Initial Catalog=emptymydb" -e -t -i
+   -h | /h | -? | /? display this help 
+  
+xml file options:
 
+    -f | -dp     data plan file (required)
+
+    -o    supply and options file to populate
+  run options:
+
+    -e      Export (requires -sourceconnection and -csv)
+
+    -i      Import (requires -sql and -targetconnection)
+
+    -t      transform (requires -csv and -sql)
+
+    -csv    csv file directory
+
+    -sql    sql file directory
+
+    -sourceconnection   source database connection string
+
+    -targetconnection   target database connection string
+
+    -nofilter           export all data from the source database without 
+Inline Options Sample:
+
+    nDump.exe -dp dataPlan.xml -sourceconnection "server=.;Integrated Security=SSPI;Initial Catalog=mydb" -csv .\csv\  -sql .\sql\ -targetconnection "server=.;Integrated Security=SSPI;Initial Catalog=emptymydb" -e -t -i
+
+Options File Sample:
+
+    nDump.exe -dp dataPlan.xml -o myOptions.xml 
 
 DataPlan XML file format:
 
