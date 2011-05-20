@@ -55,5 +55,29 @@ namespace nDump.Unit
 
             Assert.AreEqual(new string[]{"other","[database]"}, escaped);
         }
+        [Test]
+        public void ShouldEscapeASpace()
+        {
+            var g = new ColumnHeaderKeywordEscapingStrategy();
+            var escaped = g.Escape("What happened");
+
+            Assert.AreEqual("[What happened]", escaped);
+        }
+        [Test]
+        public void ShouldEscapeQuestionMarks()
+        {
+            var g = new ColumnHeaderKeywordEscapingStrategy();
+            var escaped = g.Escape("When?");
+
+            Assert.AreEqual("[When?]", escaped);
+        }
+        [Test]
+        public void ShouldEscapeSlashes()
+        {
+            var g = new ColumnHeaderKeywordEscapingStrategy();
+            var escaped = g.Escape("Today/Tomorrow");
+
+            Assert.AreEqual("[Today/Tomorrow]", escaped);
+        }
     }
 }
