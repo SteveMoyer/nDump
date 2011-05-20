@@ -48,7 +48,10 @@ namespace nDump
             get { return _excludedColumns; }
             set { _excludedColumns = value; }
         }
-
+        public string CommaSeparatedExcludedColumns
+        {
+            get { return string.Join(",", ExcludedColumns); }
+        }
         public bool HasIdentity
         {
             get { return _hasIdentity; }

@@ -39,7 +39,7 @@
             this.addTablesFromDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataPlanPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.tableTabControl = new nDump.GUI.TableTabControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             this.runToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(292, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(734, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -70,35 +70,35 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "&New";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // editToolStripMenuItem
             // 
@@ -130,20 +130,20 @@
             this.exportToolStripMenuItem.Text = "Configure And Run";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
-            // dataPlanPropertyGrid
+            // tableTabControl
             // 
-            this.dataPlanPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataPlanPropertyGrid.Location = new System.Drawing.Point(0, 24);
-            this.dataPlanPropertyGrid.Name = "dataPlanPropertyGrid";
-            this.dataPlanPropertyGrid.Size = new System.Drawing.Size(292, 249);
-            this.dataPlanPropertyGrid.TabIndex = 0;
+            this.tableTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableTabControl.Location = new System.Drawing.Point(0, 24);
+            this.tableTabControl.Name = "tableTabControl";
+            this.tableTabControl.Size = new System.Drawing.Size(734, 528);
+            this.tableTabControl.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 273);
-            this.Controls.Add(this.dataPlanPropertyGrid);
+            this.ClientSize = new System.Drawing.Size(734, 552);
+            this.Controls.Add(this.tableTabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -163,12 +163,12 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.PropertyGrid dataPlanPropertyGrid;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addTablesFromDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-    }
+        private TableTabControl tableTabControl;
+        }
 }

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataPlanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataPlanForm.Designer.cs">
+      <DependentUpon>DataPlanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,21 @@
     <Compile Include="SqlConnectionControl.Designer.cs">
       <DependentUpon>SqlConnectionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="TableGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TableGrid.Designer.cs">
+      <DependentUpon>TableGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TableTabControl.Designer.cs">
+      <DependentUpon>TableTabControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="DataPlanForm.resx">
+      <DependentUpon>DataPlanForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExportForm.resx">
       <DependentUpon>ExportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +113,12 @@
     </Compile>
     <EmbeddedResource Include="SqlConnectionControl.resx">
       <DependentUpon>SqlConnectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableGrid.resx">
+      <DependentUpon>TableGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableTabControl.resx">
+      <DependentUpon>TableTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

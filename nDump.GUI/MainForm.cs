@@ -12,7 +12,43 @@ namespace nDump.GUI
         public MainForm()
         {
             InitializeComponent();
-        }
+                   }
+//
+//        private void AddColumnsToDataGrid(DataGridView dataGridView)
+//        {
+//            var tableName = new DataGridViewTextBoxColumn();
+//            var select = new DataGridViewTextBoxColumn();
+//            var hasIdentity = new DataGridViewCheckBoxColumn();
+//            var deleteOnly = new DataGridViewCheckBoxColumn();
+//            var ignoredColumns = new DataGridViewButtonColumn();
+//            tableName.DataPropertyName = "TableName";
+//            tableName.HeaderText = "Table Name";
+//            tableName.Name = "TableName";
+//            select.DataPropertyName = "Select";
+//            select.HeaderText = "Filtering Select";
+//            select.Name = "Select";
+//            hasIdentity.DataPropertyName = "HasIdentity";
+//            hasIdentity.HeaderText = "Has Identity";
+//            hasIdentity.Name = "HasIdentity";
+//            hasIdentity.Resizable = DataGridViewTriState.True;
+//            hasIdentity.SortMode = DataGridViewColumnSortMode.Automatic;
+//            deleteOnly.DataPropertyName = "DeleteOnly";
+//            deleteOnly.HeaderText = "Delete Only";
+//            deleteOnly.Name = "DeleteOnly";
+//            deleteOnly.Resizable = DataGridViewTriState.True;
+//            deleteOnly.SortMode = DataGridViewColumnSortMode.Automatic;
+//            ignoredColumns.HeaderText = "Ignored Columns";
+//            ignoredColumns.Name = "IgnoredColumns";
+//            ignoredColumns.Text = "Ignored Columns";
+//            dataGridView.Columns.AddRange(new DataGridViewColumn[]
+//                                              {
+//                                                  tableName,
+//                                                  select,
+//                                                  hasIdentity,
+//                                                  deleteOnly,
+//                                                  ignoredColumns
+//                                              });
+//        }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -87,12 +123,14 @@ namespace nDump.GUI
         private void LoadDataPlan(DataPlan dataPlan)
         {
             _dataPlan = dataPlan;
-            dataPlanPropertyGrid.SelectedObject = _dataPlan;
+            tableTabControl.CurrentDataPlan = _dataPlan;
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ExportForm(_dataPlan).ShowDialog();
         }
+
+      
     }
 }

@@ -60,8 +60,8 @@ namespace nDump.GUI
             ApplyFilterCheckBox.Checked = options.ApplyFilters;
             ExportCheckBox.Checked = options.Export;
             ImportCheckBox.Checked = options.Import;
-            exportsqlConnection.Text = options.SourceConnectionString;
-            ImportSqlConnection.Text = options.TargetConnectionString;
+            exportsqlConnection.ConnectionString = options.SourceConnectionString;
+            ImportSqlConnection.ConnectionString = options.TargetConnectionString;
             TransformCheckBox.Checked = options.Transform;
 
         }
