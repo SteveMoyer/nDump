@@ -58,6 +58,9 @@
     <Compile Include="ExportForm.Designer.cs">
       <DependentUpon>ExportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IgnoredColumnsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ImportTablesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportForm.resx">
       <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IgnoredColumnsForm.resx">
+      <DependentUpon>IgnoredColumnsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportTablesForm.resx">
       <DependentUpon>ImportTablesForm.cs</DependentUpon>

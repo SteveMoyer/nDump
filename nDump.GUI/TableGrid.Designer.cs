@@ -33,7 +33,8 @@
             this.moveDownButton = new System.Windows.Forms.Button();
             this.moveUpButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.addNewButton = new System.Windows.Forms.Button();
+            this.IgnoredColumnsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.selectDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -45,19 +46,20 @@
             this.selectDataGridView.Location = new System.Drawing.Point(0, 0);
             this.selectDataGridView.MultiSelect = false;
             this.selectDataGridView.Name = "selectDataGridView";
-            this.selectDataGridView.Size = new System.Drawing.Size(440, 131);
+            this.selectDataGridView.Size = new System.Drawing.Size(529, 131);
             this.selectDataGridView.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.IgnoredColumnsButton);
             this.panel1.Controls.Add(this.moveDownButton);
             this.panel1.Controls.Add(this.moveUpButton);
             this.panel1.Controls.Add(this.removeButton);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.addNewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 37);
+            this.panel1.Size = new System.Drawing.Size(529, 37);
             this.panel1.TabIndex = 2;
             // 
             // moveDownButton
@@ -90,14 +92,25 @@
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
-            // button1
+            // addNewButton
             // 
-            this.button1.Location = new System.Drawing.Point(3, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Add New";
-            this.button1.UseVisualStyleBackColor = true;
+            this.addNewButton.Location = new System.Drawing.Point(3, 11);
+            this.addNewButton.Name = "addNewButton";
+            this.addNewButton.Size = new System.Drawing.Size(75, 23);
+            this.addNewButton.TabIndex = 0;
+            this.addNewButton.Text = "Add New";
+            this.addNewButton.UseVisualStyleBackColor = true;
+            this.addNewButton.Click += new System.EventHandler(this.AddNewButtonClick);
+            // 
+            // IgnoredColumnsButton
+            // 
+            this.IgnoredColumnsButton.Location = new System.Drawing.Point(337, 11);
+            this.IgnoredColumnsButton.Name = "IgnoredColumnsButton";
+            this.IgnoredColumnsButton.Size = new System.Drawing.Size(121, 23);
+            this.IgnoredColumnsButton.TabIndex = 4;
+            this.IgnoredColumnsButton.Text = "Ignored Columns";
+            this.IgnoredColumnsButton.UseVisualStyleBackColor = true;
+            this.IgnoredColumnsButton.Click += new System.EventHandler(this.IgnoredColumnsButton_Click);
             // 
             // TableGrid
             // 
@@ -106,7 +119,7 @@
             this.Controls.Add(this.selectDataGridView);
             this.Controls.Add(this.panel1);
             this.Name = "TableGrid";
-            this.Size = new System.Drawing.Size(440, 168);
+            this.Size = new System.Drawing.Size(529, 168);
             ((System.ComponentModel.ISupportInitialize)(this.selectDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -118,8 +131,9 @@
         private System.Windows.Forms.DataGridView selectDataGridView;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button removeButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button addNewButton;
         private System.Windows.Forms.Button moveDownButton;
         private System.Windows.Forms.Button moveUpButton;
+        private System.Windows.Forms.Button IgnoredColumnsButton;
     }
 }

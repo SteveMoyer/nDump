@@ -40,8 +40,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.filterTabPage);
             this.tabControl1.Controls.Add(this.selectTabPage);
+            this.tabControl1.Controls.Add(this.filterTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";

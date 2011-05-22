@@ -31,9 +31,11 @@ namespace nDump.GUI
             var hasIdentity = new DataGridViewCheckBoxColumn();
             var deleteOnly = new DataGridViewCheckBoxColumn();
             var ignoredColumns = new DataGridViewTextBoxColumn();
+            
             tableName.DataPropertyName = TableName;
             tableName.HeaderText = "Table Name";
             tableName.Name = TableName;
+            
             select.DataPropertyName = SelectField;
             select.HeaderText = "Filtering Select";
             select.Name = SelectField;
@@ -43,15 +45,18 @@ namespace nDump.GUI
             hasIdentity.Name = HasIdentity;
             hasIdentity.Resizable = DataGridViewTriState.True;
             hasIdentity.SortMode = DataGridViewColumnSortMode.Automatic;
+            
             deleteOnly.DataPropertyName = DeleteOnly;
             deleteOnly.HeaderText = "Delete Only";
             deleteOnly.Name = DeleteOnly;
             deleteOnly.Resizable = DataGridViewTriState.True;
             deleteOnly.SortMode = DataGridViewColumnSortMode.Automatic;
+            
             ignoredColumns.HeaderText = IgnoredColumns;
             ignoredColumns.DataPropertyName = "CommaSeparatedExcludedColumns";
             ignoredColumns.Name = "IgnoredColumns";
             ignoredColumns.ReadOnly = true;
+            
             dataGridView.Columns.AddRange(new DataGridViewColumn[]
                                               {
                                                   tableName,
@@ -72,7 +77,8 @@ namespace nDump.GUI
         private void SwapItems(int sourceIndex, int targetIndex)
         {
             if (sourceIndex<0|| targetIndex<0) return;
-            if (sourceIndex >= SelectList.Count || targetIndex >= SelectList.Count) return;
+            if (sourceIndex >= SelectList.Count 
+                || targetIndex >= SelectList.Count) return;
             var rowAbove = SelectList[targetIndex];
             var rowToMove = SelectList[sourceIndex];
             SelectList[sourceIndex] = rowAbove;
@@ -87,7 +93,6 @@ namespace nDump.GUI
             if (selectDataGridView.CurrentRow == null) return;
             var selectedItem = selectDataGridView.CurrentRow.Index;
             SwapItems(selectedItem, selectedItem+1);
-            
         }
 
         private void RemoveButton_Click(object sender, System.EventArgs e)
@@ -95,6 +100,32 @@ namespace nDump.GUI
             if (selectDataGridView.CurrentRow == null) return;
             SelectList.RemoveAt(selectDataGridView.CurrentRow.Index);
             selectDataGridView.Refresh();
+        }
+
+        private void AddNewButtonClick(object sender, System.EventArgs e)
+        {
+            var newSqlTableSelect = new SqlTableSelect();
+            if (selectDataGridView.CurrentRow!=null)
+                SelectList.Insert(selectDataGridView.CurrentRow.Index,newSqlTableSelect);
+            else
+            {
+                SelectList.Add(newSqlTableSelect);
+            }
+            selectDataGridView.Refresh();
+        }
+
+        private void IgnoredColumnsButton_Click(object sender, System.EventArgs e)
+        {
+            if (selectDataGridView.CurrentRow==null) return;
+            var ignoredColumnsForm = new IgnoredColumnsForm();
+            ignoredColumnsForm.IgnoredColumns = SelectList[selectDataGridView.CurrentRow.Index].ExcludedColumns;
+            if (ignoredColumnsForm.DialogResult == DialogResult.OK)
+                SelectList[selectDataGridView.CurrentRow.Index].ExcludedColumns = ignoredColumnsForm.IgnoredColumns;
+            
+            {
+                
+            }
+
         }
     }
 }
