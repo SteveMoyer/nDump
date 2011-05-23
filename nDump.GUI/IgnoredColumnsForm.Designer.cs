@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace nDump.GUI
 {
-    public class IgnoredColumnsForm : Form
+    public partial class IgnoredColumnsForm : Form
     {
         private Panel panel1;
         private Button CancelButton;
@@ -46,7 +46,7 @@ namespace nDump.GUI
             CancelButton.TabIndex = 2;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = true;
-            CancelButton.Click += CancelButton_Click;
+            CancelButton.Click += CancelButtonClick;
             // 
             // OkButton
             // 
@@ -56,7 +56,7 @@ namespace nDump.GUI
             OkButton.TabIndex = 1;
             OkButton.Text = "Ok";
             OkButton.UseVisualStyleBackColor = true;
-            OkButton.Click += OkButton_Click;
+            OkButton.Click += OkButtonClick;
             // 
             // label1
             // 
@@ -98,22 +98,6 @@ namespace nDump.GUI
             ResumeLayout(false);
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        public List<string> IgnoredColumns
-        {
-            get { return columnsListTextBox.Text.Split('\n').Where(s=> !String.IsNullOrWhiteSpace(s)).ToList(); }
-            set { columnsListTextBox.Text = string.Join("\n", value); }
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
+        
     }
 }

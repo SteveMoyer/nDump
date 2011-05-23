@@ -30,11 +30,11 @@
         {
             this.selectDataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.IgnoredColumnsButton = new System.Windows.Forms.Button();
             this.moveDownButton = new System.Windows.Forms.Button();
             this.moveUpButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.addNewButton = new System.Windows.Forms.Button();
-            this.IgnoredColumnsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.selectDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +62,16 @@
             this.panel1.Size = new System.Drawing.Size(529, 37);
             this.panel1.TabIndex = 2;
             // 
+            // IgnoredColumnsButton
+            // 
+            this.IgnoredColumnsButton.Location = new System.Drawing.Point(337, 11);
+            this.IgnoredColumnsButton.Name = "IgnoredColumnsButton";
+            this.IgnoredColumnsButton.Size = new System.Drawing.Size(121, 23);
+            this.IgnoredColumnsButton.TabIndex = 4;
+            this.IgnoredColumnsButton.Text = "Ignored Columns";
+            this.IgnoredColumnsButton.UseVisualStyleBackColor = true;
+            this.IgnoredColumnsButton.Click += new System.EventHandler(this.IgnoredColumnsButtonClick);
+            // 
             // moveDownButton
             // 
             this.moveDownButton.Location = new System.Drawing.Point(246, 11);
@@ -70,7 +80,7 @@
             this.moveDownButton.TabIndex = 3;
             this.moveDownButton.Text = "Move Down";
             this.moveDownButton.UseVisualStyleBackColor = true;
-            this.moveDownButton.Click += new System.EventHandler(this.MoveDownButton_Click);
+            this.moveDownButton.Click += new System.EventHandler(this.MoveDownButtonClick);
             // 
             // moveUpButton
             // 
@@ -80,7 +90,7 @@
             this.moveUpButton.TabIndex = 2;
             this.moveUpButton.Text = "Move Up";
             this.moveUpButton.UseVisualStyleBackColor = true;
-            this.moveUpButton.Click += new System.EventHandler(this.MoveUpButton_Click);
+            this.moveUpButton.Click += new System.EventHandler(this.MoveUpButtonClick);
             // 
             // removeButton
             // 
@@ -90,7 +100,7 @@
             this.removeButton.TabIndex = 1;
             this.removeButton.Text = "Remove";
             this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.RemoveButton_Click);
+            this.removeButton.Click += new System.EventHandler(this.RemoveButtonClick);
             // 
             // addNewButton
             // 
@@ -101,16 +111,6 @@
             this.addNewButton.Text = "Add New";
             this.addNewButton.UseVisualStyleBackColor = true;
             this.addNewButton.Click += new System.EventHandler(this.AddNewButtonClick);
-            // 
-            // IgnoredColumnsButton
-            // 
-            this.IgnoredColumnsButton.Location = new System.Drawing.Point(337, 11);
-            this.IgnoredColumnsButton.Name = "IgnoredColumnsButton";
-            this.IgnoredColumnsButton.Size = new System.Drawing.Size(121, 23);
-            this.IgnoredColumnsButton.TabIndex = 4;
-            this.IgnoredColumnsButton.Text = "Ignored Columns";
-            this.IgnoredColumnsButton.UseVisualStyleBackColor = true;
-            this.IgnoredColumnsButton.Click += new System.EventHandler(this.IgnoredColumnsButton_Click);
             // 
             // TableGrid
             // 

@@ -61,7 +61,9 @@
     <Compile Include="IgnoredColumnsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportTablesForm.cs">
+    <Compile Include="IgnoredColumnsForm.Designer.cs">
+      <DependentUpon>IgnoredColumnsForm.cs</DependentUpon>
+    </Compile><Compile Include="ImportTablesForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ImportTablesForm.Designer.cs">
