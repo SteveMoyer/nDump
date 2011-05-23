@@ -12,45 +12,9 @@ namespace nDump.GUI
         public MainForm()
         {
             InitializeComponent();
-                   }
-//
-//        private void AddColumnsToDataGrid(DataGridView dataGridView)
-//        {
-//            var tableName = new DataGridViewTextBoxColumn();
-//            var select = new DataGridViewTextBoxColumn();
-//            var hasIdentity = new DataGridViewCheckBoxColumn();
-//            var deleteOnly = new DataGridViewCheckBoxColumn();
-//            var ignoredColumns = new DataGridViewButtonColumn();
-//            tableName.DataPropertyName = "TableName";
-//            tableName.HeaderText = "Table Name";
-//            tableName.Name = "TableName";
-//            select.DataPropertyName = "Select";
-//            select.HeaderText = "Filtering Select";
-//            select.Name = "Select";
-//            hasIdentity.DataPropertyName = "HasIdentity";
-//            hasIdentity.HeaderText = "Has Identity";
-//            hasIdentity.Name = "HasIdentity";
-//            hasIdentity.Resizable = DataGridViewTriState.True;
-//            hasIdentity.SortMode = DataGridViewColumnSortMode.Automatic;
-//            deleteOnly.DataPropertyName = "DeleteOnly";
-//            deleteOnly.HeaderText = "Delete Only";
-//            deleteOnly.Name = "DeleteOnly";
-//            deleteOnly.Resizable = DataGridViewTriState.True;
-//            deleteOnly.SortMode = DataGridViewColumnSortMode.Automatic;
-//            ignoredColumns.HeaderText = "Ignored Columns";
-//            ignoredColumns.Name = "IgnoredColumns";
-//            ignoredColumns.Text = "Ignored Columns";
-//            dataGridView.Columns.AddRange(new DataGridViewColumn[]
-//                                              {
-//                                                  tableName,
-//                                                  select,
-//                                                  hasIdentity,
-//                                                  deleteOnly,
-//                                                  ignoredColumns
-//                                              });
-//        }
+        }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItemClick(object sender, EventArgs e)
         {
             var dataPlanOpenFileDialog = new OpenFileDialog
                                              {
@@ -78,7 +42,7 @@ namespace nDump.GUI
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
             var dataPlanSaveFileDialog = new SaveFileDialog
                                              {
@@ -99,23 +63,23 @@ namespace nDump.GUI
             _dataPlan.Save(_file);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private static void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItemClick(object sender, EventArgs e)
         {
             _file = string.Empty;
-            LoadDataPlan(_dataPlan);
+            LoadDataPlan(new DataPlan());
         }
 
-        private void addTablesFromDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddTablesFromDatabaseToolStripMenuItemClick(object sender, EventArgs e)
         {
             new ImportTablesForm(_dataPlan.DataSelects).ShowDialog();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainFormLoad(object sender, EventArgs e)
         {
             LoadDataPlan(new DataPlan());
         }
@@ -124,13 +88,17 @@ namespace nDump.GUI
         {
             _dataPlan = dataPlan;
             tableTabControl.CurrentDataPlan = _dataPlan;
+            SetWindowTitle();
         }
 
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SetWindowTitle()
+        {
+            Text = "nDump - " + _file ==null? "new data plan":_file;
+        }
+
+        private void ExportToolStripMenuItemClick(object sender, EventArgs e)
         {
             new ExportForm(_dataPlan).ShowDialog();
         }
-
-      
     }
 }

@@ -214,7 +214,7 @@
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.panel1);
             this.Name = "ExportForm";
-            this.Text = "ExportForm";
+            this.Text = "Run nDump Against Databases";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

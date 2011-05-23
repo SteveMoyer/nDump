@@ -105,7 +105,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.connectionTextBox);
             this.Name = "ImportTablesForm";
-            this.Text = "ImportTablesForm";
+            this.Text = "Import Tables From Existing Database";
             this.ResumeLayout(false);
             this.PerformLayout();
 

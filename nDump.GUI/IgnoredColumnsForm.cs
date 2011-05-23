@@ -20,7 +20,7 @@ namespace nDump.GUI
 
         public List<string> IgnoredColumns
         {
-            get { return columnsListTextBox.Text.Split('\n').Where(s => !String.IsNullOrWhiteSpace(s)).ToList(); }
+            get { return columnsListTextBox.Text.Split('\n').Where(s => !String.IsNullOrWhiteSpace(s)).Select(s=> s.Trim()).ToList(); }
             set { columnsListTextBox.Text = string.Join("\n", value); }
         }
 

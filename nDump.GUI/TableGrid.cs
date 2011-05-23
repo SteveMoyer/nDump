@@ -11,8 +11,8 @@ namespace nDump.GUI
         private const string TableName = "TableName";
         private const string SelectField = "Select";
         private const string DeleteOnly = "DeleteOnly";
-        private List<SqlTableSelect> selectList ;
-
+        private List<SqlTableSelect> _selectList ;
+        BindingSource _bindingSource;
         public TableGrid()
         {
             InitializeComponent();
@@ -24,12 +24,12 @@ namespace nDump.GUI
         {
             get
             {
-                return selectList;
+                return _selectList;
             }
-            set { selectList = value;
-                var bindingSource = new BindingSource();
-                bindingSource.DataSource = selectList;
-                selectDataGridView.DataSource = bindingSource;
+            set { _selectList = value;
+                
+                _bindingSource = new BindingSource {DataSource = _selectList};
+                selectDataGridView.DataSource = _bindingSource;
                 
             }
         }
@@ -87,12 +87,12 @@ namespace nDump.GUI
         private void SwapItems(int sourceIndex, int targetIndex)
         {
             if (sourceIndex < 0 || targetIndex < 0) return;
-            if (sourceIndex >= SelectList.Count
-                || targetIndex >= SelectList.Count) return;
-            var rowAbove = SelectList[targetIndex];
-            var rowToMove = SelectList[sourceIndex];
-            SelectList[sourceIndex] = rowAbove;
-            SelectList[targetIndex] = rowToMove;
+            if (sourceIndex >= _bindingSource.Count
+                || targetIndex >= _bindingSource.Count) return;
+            var rowAbove = _bindingSource[targetIndex];
+            var rowToMove = _bindingSource[sourceIndex];
+            _bindingSource[sourceIndex] = rowAbove;
+            _bindingSource[targetIndex] = rowToMove;
             selectDataGridView.Refresh();
             selectDataGridView.CurrentCell = selectDataGridView.Rows[targetIndex].Cells[1];
             selectDataGridView.Rows[targetIndex].Selected = true;
@@ -105,28 +105,7 @@ namespace nDump.GUI
             SwapItems(selectedItem, selectedItem + 1);
         }
 
-        private void RemoveButtonClick(object sender, EventArgs e)
-        {
-            if (selectDataGridView.CurrentRow == null) return;
-            SelectList.RemoveAt(selectDataGridView.CurrentRow.Index);
-            selectDataGridView.Refresh();
-        }
-
-        private void AddNewButtonClick(object sender, EventArgs e)
-        {
-            var newSqlTableSelect = new SqlTableSelect();
-            newSqlTableSelect.TableName = "new table";
-          
-            if (selectDataGridView.CurrentRow != null)
-                SelectList.Insert(selectDataGridView.CurrentRow.Index, newSqlTableSelect);
-            else
-            {
-
-                SelectList.Add(newSqlTableSelect);
-            }
-    
-            selectDataGridView.Refresh();
-        }
+     
 
         private void IgnoredColumnsButtonClick(object sender, EventArgs e)
         {
@@ -137,4 +116,4 @@ namespace nDump.GUI
                 SelectList[selectDataGridView.CurrentRow.Index].ExcludedColumns = ignoredColumnsForm.IgnoredColumns;
         }
     }
-}
+}   

@@ -33,8 +33,6 @@
             this.IgnoredColumnsButton = new System.Windows.Forms.Button();
             this.moveDownButton = new System.Windows.Forms.Button();
             this.moveUpButton = new System.Windows.Forms.Button();
-            this.removeButton = new System.Windows.Forms.Button();
-            this.addNewButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.selectDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,8 +52,6 @@
             this.panel1.Controls.Add(this.IgnoredColumnsButton);
             this.panel1.Controls.Add(this.moveDownButton);
             this.panel1.Controls.Add(this.moveUpButton);
-            this.panel1.Controls.Add(this.removeButton);
-            this.panel1.Controls.Add(this.addNewButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 131);
             this.panel1.Name = "panel1";
@@ -64,7 +60,7 @@
             // 
             // IgnoredColumnsButton
             // 
-            this.IgnoredColumnsButton.Location = new System.Drawing.Point(337, 11);
+            this.IgnoredColumnsButton.Location = new System.Drawing.Point(182, 11);
             this.IgnoredColumnsButton.Name = "IgnoredColumnsButton";
             this.IgnoredColumnsButton.Size = new System.Drawing.Size(121, 23);
             this.IgnoredColumnsButton.TabIndex = 4;
@@ -74,7 +70,7 @@
             // 
             // moveDownButton
             // 
-            this.moveDownButton.Location = new System.Drawing.Point(246, 11);
+            this.moveDownButton.Location = new System.Drawing.Point(91, 11);
             this.moveDownButton.Name = "moveDownButton";
             this.moveDownButton.Size = new System.Drawing.Size(75, 23);
             this.moveDownButton.TabIndex = 3;
@@ -84,33 +80,13 @@
             // 
             // moveUpButton
             // 
-            this.moveUpButton.Location = new System.Drawing.Point(165, 11);
+            this.moveUpButton.Location = new System.Drawing.Point(10, 11);
             this.moveUpButton.Name = "moveUpButton";
             this.moveUpButton.Size = new System.Drawing.Size(75, 23);
             this.moveUpButton.TabIndex = 2;
             this.moveUpButton.Text = "Move Up";
             this.moveUpButton.UseVisualStyleBackColor = true;
             this.moveUpButton.Click += new System.EventHandler(this.MoveUpButtonClick);
-            // 
-            // removeButton
-            // 
-            this.removeButton.Location = new System.Drawing.Point(84, 11);
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(75, 23);
-            this.removeButton.TabIndex = 1;
-            this.removeButton.Text = "Remove";
-            this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.RemoveButtonClick);
-            // 
-            // addNewButton
-            // 
-            this.addNewButton.Location = new System.Drawing.Point(3, 11);
-            this.addNewButton.Name = "addNewButton";
-            this.addNewButton.Size = new System.Drawing.Size(75, 23);
-            this.addNewButton.TabIndex = 0;
-            this.addNewButton.Text = "Add New";
-            this.addNewButton.UseVisualStyleBackColor = true;
-            this.addNewButton.Click += new System.EventHandler(this.AddNewButtonClick);
             // 
             // TableGrid
             // 
@@ -130,8 +106,6 @@
 
         private System.Windows.Forms.DataGridView selectDataGridView;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button removeButton;
-        private System.Windows.Forms.Button addNewButton;
         private System.Windows.Forms.Button moveDownButton;
         private System.Windows.Forms.Button moveUpButton;
         private System.Windows.Forms.Button IgnoredColumnsButton;
