@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text;
 using LumenWorks.Framework.IO.Csv;
+using nDump.Model;
+using nDump.Transformation;
 using NUnit.Framework;
 
 namespace nDump.Integration

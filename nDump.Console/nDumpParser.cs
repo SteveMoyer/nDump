@@ -1,4 +1,6 @@
-﻿namespace nDump.Console
+﻿using nDump.Configuration;
+
+namespace nDump.Console
 {
     internal class nDumpParser
     {

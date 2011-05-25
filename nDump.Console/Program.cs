@@ -1,4 +1,9 @@
-﻿namespace nDump.Console
+﻿using nDump.Configuration;
+using nDump.Logging;
+using nDump.Model;
+using nDump.Workflow;
+
+namespace nDump.Console
 {
     internal class Program
     {

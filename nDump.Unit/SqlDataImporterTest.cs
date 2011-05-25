@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Moq;
+using nDump.Import;
+using nDump.Logging;
+using nDump.Model;
+using nDump.SqlServer;
+using nDump.Workflow;
 using NUnit.Framework;
 
 namespace nDump.Unit

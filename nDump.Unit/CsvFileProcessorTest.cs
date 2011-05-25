@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using nDump.Model;
+using nDump.Transformation;
+using nDump.Workflow;
+using NUnit.Framework;
 
 namespace nDump.Unit
 {

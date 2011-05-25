@@ -1,4 +1,5 @@
 ﻿
+using nDump.Transformation.Escaping;
 using NUnit.Framework;
 
 namespace nDump.Unit

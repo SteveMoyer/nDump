@@ -1,6 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using nDump.Configuration;
+using nDump.Logging;
+using nDump.Model;
+using nDump.Workflow;
 
 namespace nDump.GUI
 {

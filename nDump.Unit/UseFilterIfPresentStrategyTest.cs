@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Moq;
+using nDump.Export;
+using nDump.Logging;
+using nDump.Model;
+using nDump.SqlServer;
 using NUnit.Framework;
 
 namespace nDump.Unit
