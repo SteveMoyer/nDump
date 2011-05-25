@@ -11,7 +11,7 @@ namespace nDump.Integration
     {
         private class StringBuildingSqlWriter:ISqlFileWriter
         {
-            private StringBuilder _stringBuilder;
+            private readonly StringBuilder _stringBuilder;
 
             public StringBuildingSqlWriter()
             {
