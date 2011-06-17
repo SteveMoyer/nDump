@@ -2,24 +2,29 @@
 
 namespace nDump.Console
 {
+// ReSharper disable InconsistentNaming
     internal class nDumpParser
+// ReSharper restore InconsistentNaming
     {
         public nDumpOptions Parse(string[] args)
         {
-            int position = 0;
+            var position = 0;
             bool export = false, import = false, transform = false;
-            string file = string.Empty;
-            string csvDirectory = string.Empty;
-            string sqlDirectory = string.Empty;
-            string sourceConnection = string.Empty;
-            string targetConnection = string.Empty;
-            bool applyFilters = true;
-            string options = string.Empty;
+            var file = string.Empty;
+            var csvDirectory = string.Empty;
+            var sqlDirectory = string.Empty;
+            var sourceConnection = string.Empty;
+            var targetConnection = string.Empty;
+            var applyFilters = true;
+            var options = string.Empty;
             while (position < args.Length)
             {
                 switch (args[position].ToLower())
                 {
-                    case "-?": case "/?": case "-h":case"/h":
+                    case "-?":
+                    case "/?":
+                    case "-h":
+                    case "/h":
                         throw new nDumpConfigurationException();
                     case "-e":
                         export = true;
@@ -33,15 +38,16 @@ namespace nDump.Console
                         import = true;
                         position++;
                         break;
-                    case "-f": case "-dp":
+                    case "-f":
+                    case "-dp":
                         file = args[position + 1];
                         position += 2;
                         break;
-                        case "-o":
+                    case "-o":
                         options = args[position + 1];
                         position += 2;
                         break;
-                    
+
                     case "-csv":
                         csvDirectory = args[position + 1];
                         position += 2;
@@ -68,12 +74,12 @@ namespace nDump.Console
             }
             if (!string.IsNullOrEmpty(options))
             {
-                nDumpOptions nDumpOptions = nDumpOptions.Load(options);
-                nDumpOptions.File = file;
-                return nDumpOptions;
+                var ndumpOptions = nDumpOptions.Load(options);
+                ndumpOptions.File = file;
+                return ndumpOptions;
             }
             return new nDumpOptions(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
-                                 targetConnection,applyFilters);
+                                    targetConnection, applyFilters);
         }
     }
 }

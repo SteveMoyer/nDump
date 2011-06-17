@@ -23,5 +23,10 @@ namespace nDump.GUI
             }
 
         }
+
+        public void AddTables(IList<string> selectedItems)
+        {
+            SelectTableGrid.AddTables(selectedItems);
+        }
     }
 }

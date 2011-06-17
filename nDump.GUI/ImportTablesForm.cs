@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,7 @@ namespace nDump.GUI
     public partial class ImportTablesForm : Form
     {
         private readonly List<SqlTableSelect> _csvTables;
+        private List<string> _selectedItems;
 
         public ImportTablesForm()
         {
@@ -38,21 +40,27 @@ namespace nDump.GUI
                 {
                     tables.Add(sqlDataReader["name"].ToString());
                 }
-                var unconfiguredTableNames = tables.Where(s => !_csvTables.Any(csvTable => csvTable.TableName.Equals(s))).ToList();
+                var unconfiguredTableNames = tables.Where(s => !_csvTables.Any(csvTable => s.Equals(csvTable.TableName))).ToList();
 
                 tableListBox.DataSource = unconfiguredTableNames;
                 
             }
 
         }
-
+        public IList<string> SelectedItems
+        {
+            get { return _selectedItems; }
+        }
         private void addButton_Click(object sender, EventArgs e)
         {
-            foreach (var tableName in tableListBox.SelectedItems)
+            var selected = new List<string>();
+                        foreach (var tableName in tableListBox.SelectedItems)
             {
-                _csvTables.Add(new SqlTableSelect(tableName.ToString(),true));
+                selected.Add(tableName.ToString());
 
             }
+            _selectedItems = selected;
+            this.DialogResult = DialogResult.OK;
             Close();
         }
     }

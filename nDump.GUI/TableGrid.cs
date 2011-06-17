@@ -116,5 +116,18 @@ namespace nDump.GUI
             if (ignoredColumnsForm.ShowDialog() == DialogResult.OK)
                 SelectList[selectDataGridView.CurrentRow.Index].ExcludedColumns = ignoredColumnsForm.IgnoredColumns;
         }
+
+        public void AddTables(IList<string> selectedItems)
+        {
+//            _bindingSource.SuspendBinding();
+            foreach (var selectedItem in selectedItems)
+            {
+                _bindingSource.Add(new SqlTableSelect(selectedItem, true));
+            }
+            
+//            _bindingSource.ResumeBinding();
+//            selectDataGridView.Refresh();
+            
+        }
     }
 }   

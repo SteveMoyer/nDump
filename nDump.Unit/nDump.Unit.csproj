@@ -55,13 +55,13 @@
     <Compile Include="ValueEscapingStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nDump\nDump.csproj">
-      <Project>{FE26FDE2-574F-480E-96E6-4C2A5051D14A}</Project>
-      <Name>nDump</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LumenWorks.Framework.IO\LumenWorks.Framework.IO.csproj">
       <Project>{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}</Project>
       <Name>LumenWorks.Framework.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nDump\nDump.csproj">
+      <Project>{FE26FDE2-574F-480E-96E6-4C2A5051D14A}</Project>
+      <Name>nDump</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

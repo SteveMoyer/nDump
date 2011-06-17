@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using FileHelpers;
@@ -48,7 +49,7 @@ namespace nDump.Export
                 Directory.CreateDirectory(_destinationDirectory);
                 _logger.Log(_destinationDirectory +" did not exist: creating\n");
             }
-
+            
             foreach (var table in selects)
             {
                 if(table.DeleteOnly) continue;
@@ -68,7 +69,16 @@ namespace nDump.Export
             }
 
             var csvOptions = new CsvOptions(DontCare, ',', results.Columns.Count) {DateFormat = "g"};
-            CsvEngine.DataTableToCsv(results, _destinationDirectory + table.TableName.ToLower() + ".csv", csvOptions);
+
+            var filename = _destinationDirectory + table.TableName.ToLower() + ".csv";
+            try
+            {
+                CsvEngine.DataTableToCsv(results, filename, csvOptions);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new nDumpApplicationException("nDump cannot access the CSV file at "+filename+". Is it checked out (TFS) or modifiable? This error may also occur if the file has been opened by another program.",ex);
+            }
         }
     }
 }

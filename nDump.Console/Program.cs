@@ -36,11 +36,11 @@ Options File Sample:
                 PrintUsage();
                 return Fail;
             }
-            var csvInserterArgParser = new nDumpParser();
+            var nDumpArgParser = new nDumpParser();
             nDumpOptions nDumpOptions;
             try
             {
-                nDumpOptions = csvInserterArgParser.Parse(args);
+                nDumpOptions = nDumpArgParser.Parse(args);
             }
             catch (nDumpConfigurationException ex)
             {

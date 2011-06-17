@@ -1,4 +1,5 @@
-﻿using nDump.Configuration;
+﻿using System;
+using nDump.Configuration;
 using nDump.Export;
 using nDump.Import;
 using nDump.Logging;
@@ -28,7 +29,7 @@ namespace nDump.Workflow
                 catch (nDumpApplicationException ex)
                 {
 
-                    logger.Log("Export To Csv Failed.\n" + ex.StackTrace);
+                    logger.Log("Export To Csv Failed.\n"+ ex.Message+ Environment.NewLine + ex.StackTrace);
                     return -1;
 
                 }

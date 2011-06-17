@@ -24,7 +24,7 @@ namespace nDump
                 Directory.CreateDirectory(_directory);
                 _logger.Log(_directory + " did not exist: creating\n");
             }
-
+            
 
             var sw =
                 new StreamWriter(_directory + @"\" + _fileNameWithoutExtension + "_" + string.Format("{0:000}", _counter) + ".sql",false);

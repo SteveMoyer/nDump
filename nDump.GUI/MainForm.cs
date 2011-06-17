@@ -77,7 +77,11 @@ namespace nDump.GUI
 
         private void AddTablesFromDatabaseToolStripMenuItemClick(object sender, EventArgs e)
         {
-            new ImportTablesForm(_dataPlan.DataSelects).ShowDialog();
+            var importTablesForm = new ImportTablesForm(_dataPlan.DataSelects);
+            if (importTablesForm.ShowDialog() == DialogResult.OK)
+            {
+                tableTabControl.AddTables(importTablesForm.SelectedItems);
+            }
         }
 
         private void MainFormLoad(object sender, EventArgs e)
