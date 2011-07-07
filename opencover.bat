@@ -1,0 +1,1 @@
+.\lib\openCover\openCover.console.exe -target:.\lib\nunit-console-x86.exe -targetargs:"/noshadow nDump.Unit.dll" -filter:"+[nDump]* -[nDump]nDump.Configuration* -[nDump]nDump.*Exception -[nDump]nDump.Logging* -[nDump]nDump.SqlServer* -[nDump]nDump.Model*" -targetdir:.\nDump.Unit\bin\debug\  -output:coverage.xml

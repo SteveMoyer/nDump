@@ -1,5 +1,4 @@
-﻿using System;
-using nDump.Configuration;
+﻿using nDump.Configuration;
 using nDump.Export;
 using nDump.Import;
 using nDump.Logging;
@@ -13,63 +12,73 @@ namespace nDump.Workflow
     {
         public int ExecuteDataPlan(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
         {
-            if (nDumpOptions.Export)
+            try
             {
-                var queryExecutor = new QueryExecutor(nDumpOptions.SourceConnectionString);
-                ISelectionFilteringStrategy filteringStrategy = nDumpOptions.ApplyFilters ? (ISelectionFilteringStrategy)
-                                                                                         new UseFilterIfPresentStrategy(queryExecutor, logger)
-                                                                    : new IgnoreFilterStrategy();
-                var exporter = new SqlDataExporter(logger, nDumpOptions.CsvDirectory,
-                                                   queryExecutor, filteringStrategy);
-                try
-                {
-                    exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
-
-                }
-                catch (nDumpApplicationException ex)
-                {
-
-                    logger.Log("Export To Csv Failed.\n"+ ex.Message+ Environment.NewLine + ex.StackTrace);
-                    return -1;
-
-                }
+                ExportIfSelected(nDumpOptions, logger, dataPlan);
+                TransformIfSelected(nDumpOptions, logger, dataPlan);
+                ImportIfSelected(nDumpOptions, logger, dataPlan);
             }
-            if (nDumpOptions.Transform)
+            catch (nDumpApplicationException ex)
+            {
+                logger.Log(ex);
+                return -1;
+            }
+            return 0;
+        }
+
+        private void ImportIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
+        {
+            if (!nDumpOptions.Import) return;
+            try
+            {
+                var importer = new SqlDataImporter(logger,
+                                                   new QueryExecutor(nDumpOptions.TargetConnectionString),
+                                                   new IncrementingNumberSqlScriptFileStrategy(nDumpOptions.SqlDirectory));
+                importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
+            }
+            catch (nDumpApplicationException ex)
+            {
+                throw new nDumpApplicationException("Import Of Sql Failed.",ex);
+            }
+        }
+
+        private void TransformIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
+        {
+            if (!nDumpOptions.Transform) return;
+
+            try
             {
                 var transformer = new DataTransformer(nDumpOptions.SqlDirectory, nDumpOptions.CsvDirectory,
                                                       logger);
-                try
-                {
-
-                    transformer.ConvertCsvToSql(dataPlan.DataSelects);
-
-                }
-                catch (nDumpApplicationException ex)
-                {
-
-                    logger.Log("Export To Csv Failed.\n" + ex.StackTrace);
-                    return -1;
-
-                }
+                transformer.ConvertCsvToSql(dataPlan.DataSelects);
             }
-            if (nDumpOptions.Import)
+            catch (nDumpApplicationException ex)
             {
-                var importer = new SqlDataImporter(logger,
-                                                   new QueryExecutor(nDumpOptions.TargetConnectionString), new IncrementingNumberSqlScriptFileStrategy(nDumpOptions.SqlDirectory));
-                try
-                {
-                    importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
-                }
-                catch (nDumpApplicationException ex)
-                {
-
-                    logger.Log("Import Of Sql Failed.\n" + ex.Message + "\n" + ex.StackTrace);
-                    return -1;
-
-                }
-
+                throw new nDumpApplicationException("Export To Csv Failed.", ex);
             }
-            return 0;
+        }
+
+        private void ExportIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
+        {
+            if (!nDumpOptions.Export) return;
+
+            try
+            {
+                var queryExecutor = new QueryExecutor(nDumpOptions.SourceConnectionString);
+                ISelectionFilteringStrategy filteringStrategy =
+                    nDumpOptions.ApplyFilters
+                        ? (ISelectionFilteringStrategy) new UseFilterIfPresentStrategy(queryExecutor, logger)
+                        : new IgnoreFilterStrategy();
+
+                var exporter = new SqlDataExporter(logger, filteringStrategy,
+                                                   new CsvGenerator(logger, filteringStrategy, queryExecutor,
+                                                                    nDumpOptions.CsvDirectory));
+                exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
+            }
+            catch (nDumpApplicationException ex)
+            {
+                throw new nDumpApplicationException("Export To Csv Failed.", ex);
+            }
         }
     }
 }

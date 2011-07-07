@@ -8,5 +8,14 @@ namespace nDump.Logging
         {
             Console.WriteLine(message);
         }
+        public void Log(Exception ex)
+        {
+            while (ex != null)
+            {
+                Log(ex.Message);
+                Log(ex.StackTrace);
+                ex = ex.InnerException;
+            }
+        }
     }
 }

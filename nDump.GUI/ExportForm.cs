@@ -106,5 +106,14 @@ namespace nDump.GUI
         {
             _logTextBox.AppendText(message + Environment.NewLine);
         }
+        public void Log(Exception ex)
+        {
+            while (ex != null)
+            {
+                Log(ex.Message);
+                Log(ex.StackTrace);
+                ex = ex.InnerException;
+            }
+        }
     }
 }

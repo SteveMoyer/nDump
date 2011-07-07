@@ -14,7 +14,6 @@ namespace nDump.SqlServer
 
         public void ExecuteNonQueryStatement(string selectStatement)
         {
-            
             using (var connection = new SqlConnection(_connectionString))
             {
                 var nonQueryCommand = new SqlCommand(selectStatement, connection);
