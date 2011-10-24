@@ -5,6 +5,7 @@ using nDump.Import;
 using nDump.Logging;
 using nDump.Model;
 using nDump.SqlServer;
+using nDump.Transformation.Files;
 using nDump.Workflow;
 using NUnit.Framework;
 

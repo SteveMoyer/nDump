@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using nDump.Model;
 
-namespace nDump
+namespace nDump.Transformation.Files
 {
     public class IncrementingNumberSqlScriptFileStrategy : ISqlScriptFileStrategy
     {

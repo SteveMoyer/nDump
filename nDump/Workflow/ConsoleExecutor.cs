@@ -5,6 +5,7 @@ using nDump.Logging;
 using nDump.Model;
 using nDump.SqlServer;
 using nDump.Transformation;
+using nDump.Transformation.Files;
 
 namespace nDump.Workflow
 {

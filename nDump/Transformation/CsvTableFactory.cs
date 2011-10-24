@@ -3,6 +3,7 @@ using System.IO;
 using LumenWorks.Framework.IO.Csv;
 using nDump.Logging;
 using nDump.Model;
+using nDump.Transformation.Files;
 
 namespace nDump.Transformation
 {
@@ -23,7 +24,7 @@ namespace nDump.Transformation
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
             var filePerStatementSqlFileWriter = new FilePerStatementSqlFileWriter(_outputPath, fileNameWithoutExtension,_logger);
-            var reader = new CsvReader(File.OpenText(file), true, ',', '\"', '\"', '#',
+            var reader = new CsvReader(File.OpenText(file), true, '\t', '\"', '\"', '#',
                                        ValueTrimmingOptions.UnquotedOnly);
             return new CsvTable(reader, filePerStatementSqlFileWriter, fileNameWithoutExtension,
                                 _tablesWithIdentities.Contains(fileNameWithoutExtension.ToLower()));

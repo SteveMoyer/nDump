@@ -4,6 +4,7 @@ using System.Linq;
 using nDump.Logging;
 using nDump.Model;
 using nDump.SqlServer;
+using nDump.Transformation.Files;
 
 namespace nDump.Import
 {
@@ -25,7 +26,7 @@ namespace nDump.Import
         {
             List<SqlTableSelect> tableSelects = sqlTableSelects.ToList();
             tableSelects.Reverse();
-            _logger.Log("DeletingTable data from target in reverse order:");
+            _logger.Log("Deleting table data from target in reverse order:");
             foreach (var table in tableSelects)
             {
                 _logger.Log("     " + table.TableName);

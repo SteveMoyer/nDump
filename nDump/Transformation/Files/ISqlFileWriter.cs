@@ -1,4 +1,4 @@
-﻿namespace nDump
+﻿namespace nDump.Transformation.Files
 {
     public interface ISqlFileWriter
     {

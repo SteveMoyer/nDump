@@ -12,11 +12,12 @@ namespace nDump.Configuration
         }
 
         public nDumpOptions(bool export, bool transform, bool import, string file, string csvDirectory, string sqlDirectory,
-                         string sourceConnectionString, string targetConnectionString, bool applyFilters)
+                         string sourceConnectionString, string targetConnectionString, bool applyFilters, bool bulkInsert)
         {
             Export = export;
             TargetConnectionString = targetConnectionString;
             ApplyFilters = applyFilters;
+            BulkInsert = bulkInsert;
             SourceConnectionString = sourceConnectionString;
             Transform = transform;
             Import = import;
@@ -27,8 +28,13 @@ namespace nDump.Configuration
 
         public bool ApplyFilters { get; set; }
 
+        public bool BulkInsert{ get;set;}
         public string SqlDirectory { get; set; }
 
+  		public string BulkInsertSqlDirectory
+        {
+            get{return string.Format(@"{0}bulkInsert\", CsvDirectory);}
+        }
         public string CsvDirectory { get; set; }
 
         public string File { get; set; }

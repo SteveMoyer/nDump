@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using nDump.Model;
 
-namespace nDump
+namespace nDump.Transformation.Files
 {
     public interface ISqlScriptFileStrategy
     {

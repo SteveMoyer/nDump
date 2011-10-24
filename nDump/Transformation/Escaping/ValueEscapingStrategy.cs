@@ -14,7 +14,7 @@ namespace nDump.Transformation.Escaping
         {
             return (IsNullEmptyOrNullString(value)
                         ? NullString
-                        : (SingleSingleQuote + value + SingleSingleQuote));
+                        : ("N" + SingleSingleQuote + value + SingleSingleQuote));
         }
 
 

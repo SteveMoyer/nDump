@@ -1,7 +1,8 @@
 ﻿using System.IO;
+using System.Text;
 using nDump.Logging;
 
-namespace nDump
+namespace nDump.Transformation.Files
 {
     public class FilePerStatementSqlFileWriter:ISqlFileWriter
     {
@@ -26,8 +27,9 @@ namespace nDump
             }
             
 
-            var sw =
-                new StreamWriter(_directory + @"\" + _fileNameWithoutExtension + "_" + string.Format("{0:000}", _counter) + ".sql",false);
+            var sqlFilePath = _directory + @"\" + _fileNameWithoutExtension + "_" + string.Format("{0:000}", _counter) + ".sql";
+            const bool shouldAppend = false;
+            var sw = new StreamWriter(sqlFilePath, shouldAppend, Encoding.Unicode);
             _counter++;
             sw.Write(sql);
             sw.Dispose();

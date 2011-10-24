@@ -9,7 +9,7 @@ namespace nDump.Console
         public nDumpOptions Parse(string[] args)
         {
             var position = 0;
-            bool export = false, import = false, transform = false;
+            bool export = false, import = false, transform = false, bulkImport = false;
             var file = string.Empty;
             var csvDirectory = string.Empty;
             var sqlDirectory = string.Empty;
@@ -32,10 +32,23 @@ namespace nDump.Console
                         break;
                     case "-t":
                         transform = true;
+                        bulkImport = false;
+                        position++;
+                        break;
+                    case "-bi":
+                        bulkImport = true;
+                        if (import)
+                        {
+                            throw new nDumpConfigurationException("Cannot use import and bulk import at same time");
+                        }
                         position++;
                         break;
                     case "-i":
                         import = true;
+                        if (bulkImport)
+                        {
+                            throw new nDumpConfigurationException("Cannot use import and bulk import at same time");
+                        }
                         position++;
                         break;
                     case "-f":
@@ -79,7 +92,7 @@ namespace nDump.Console
                 return ndumpOptions;
             }
             return new nDumpOptions(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
-                                    targetConnection, applyFilters);
+                                    targetConnection, applyFilters, bulkImport);
         }
     }
 }

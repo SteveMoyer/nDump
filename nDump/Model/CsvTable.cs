@@ -1,4 +1,5 @@
 ﻿using LumenWorks.Framework.IO.Csv;
+using nDump.Transformation.Files;
 
 namespace nDump.Model
 {
