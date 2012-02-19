@@ -25,7 +25,7 @@ namespace nDump.Integration
             {
                 _stringBuilder.Append(sql);
             }
-            public string ToString()
+            public new string ToString()
             {
                 return _stringBuilder.ToString();
             }

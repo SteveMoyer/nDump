@@ -18,8 +18,7 @@ namespace nDump.Export
         private readonly IQueryExecutor _queryExecutor;
         private readonly string _destinationDirectory;
         private readonly string _bulkInsertDestinationDirectory;
-        private const char DelimiterChar = (char)0x09;  // Tab character as delimiter
-        private const string Delimiter = "\\t";
+        private const char Delimiter = '\t';
         private const string Off = "off";
         private const string On = "on";
         
@@ -67,7 +66,7 @@ namespace nDump.Export
                 results.Columns.Remove(column);
             }
 
-            var csvOptions = new CsvOptions(DontCare, ',', results.Columns.Count) {DateFormat = "g"};
+            var csvOptions = new CsvOptions(DontCare, Delimiter, results.Columns.Count) {DateFormat = "g"};
 
             var filename = _destinationDirectory + table.TableName.ToLower() + ".csv";
             try
@@ -192,7 +191,7 @@ namespace nDump.Export
 
         private string GenerateCsv(string tableName, DataTable results)
         {
-            var csvOptions = new CsvOptions(DontCare, DelimiterChar, results.Columns.Count)
+            var csvOptions = new CsvOptions(DontCare, Delimiter, results.Columns.Count)
             {
                 DateFormat = "g",
                 Encoding = Encoding.Unicode
