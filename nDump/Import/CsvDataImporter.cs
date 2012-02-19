@@ -1,0 +1,62 @@
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using LumenWorks.Framework.IO.Csv;
+using nDump.Logging;
+using nDump.Model;
+using nDump.SqlServer;
+
+namespace nDump.Import
+{
+    internal class CsvDataImporter
+    {
+        private readonly ILogger _logger;
+        private readonly QueryExecutor _queryExecutor;
+        private readonly string _csvDirectory;
+
+        public CsvDataImporter(ILogger logger, QueryExecutor queryExecutor, string csvDirectory)
+        {
+            _logger = logger;
+            _queryExecutor = queryExecutor;
+            _csvDirectory = csvDirectory;
+        }
+
+        public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> dataSelects)
+        {
+            DeleteDataFromAllDestinationTables(dataSelects);
+            InsertDataIntoDestinationTables(dataSelects);
+        }
+
+        public void DeleteDataFromAllDestinationTables(List<SqlTableSelect> sqlTableSelects)
+        {
+            List<SqlTableSelect> tableSelects = sqlTableSelects.ToList();
+            tableSelects.Reverse();
+            _logger.Log("Deleting table data from target in reverse order:");
+            foreach (var table in tableSelects)
+            {
+                _logger.Log("     " + table.TableName);
+                _queryExecutor.ExecuteNonQueryStatement("delete from " + table.TableName);
+            }
+        }
+
+        public void InsertDataIntoDestinationTables(List<SqlTableSelect> selects)
+        {
+            _logger.Log("Adding Table data to target:");
+            foreach (var table in selects.ToList())
+            {
+                if (table.DeleteOnly) continue;
+                _logger.Log("\t" + table.TableName);
+                var csvFile = Path.Combine(_csvDirectory, table.TableName + ".csv");
+                var reader = new CsvReader(File.OpenText(csvFile), true, '\t', '\"', '\"', '#',
+                                       ValueTrimmingOptions.UnquotedOnly);
+                var dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                _queryExecutor.ExecuteBulkInsert(table.TableName, dataTable, table.HasIdentity);
+                _logger.Log("\t\tInserted " + dataTable.Rows.Count + " rows.");
+
+            }
+        }
+    }
+}

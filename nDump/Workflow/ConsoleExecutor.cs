@@ -18,6 +18,7 @@ namespace nDump.Workflow
                 ExportIfSelected(nDumpOptions, logger, dataPlan);
                 TransformIfSelected(nDumpOptions, logger, dataPlan);
                 ImportIfSelected(nDumpOptions, logger, dataPlan);
+                BuklInsertIfSelected(nDumpOptions, logger, dataPlan);
             }
             catch (nDumpApplicationException ex)
             {
@@ -25,6 +26,22 @@ namespace nDump.Workflow
                 return -1;
             }
             return 0;
+        }
+
+        private void BuklInsertIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
+        {
+            if (!nDumpOptions.BulkInsert) return;
+            try
+            {
+                var importer = new CsvDataImporter(logger,
+                                                   new QueryExecutor(nDumpOptions.TargetConnectionString),
+                                                   nDumpOptions.CsvDirectory);
+                importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
+            }
+            catch (nDumpApplicationException ex)
+            {
+                throw new nDumpApplicationException("Import Of Sql Failed.",ex);
+            }
         }
 
         private void ImportIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
