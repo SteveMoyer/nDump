@@ -35,7 +35,7 @@ namespace nDump.Workflow
             {
                 var importer = new CsvDataImporter(logger,
                                                    new QueryExecutor(nDumpOptions.TargetConnectionString),
-                                                   nDumpOptions.CsvDirectory);
+                                                   nDumpOptions.CsvDirectory, nDumpOptions.Delimiter);
                 importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
             }
             catch (nDumpApplicationException ex)
@@ -67,7 +67,7 @@ namespace nDump.Workflow
             try
             {
                 var transformer = new DataTransformer(nDumpOptions.SqlDirectory, nDumpOptions.CsvDirectory,
-                                                      logger);
+                                                      logger, nDumpOptions.Delimiter);
                 transformer.ConvertCsvToSql(dataPlan.DataSelects);
             }
             catch (nDumpApplicationException ex)
@@ -90,7 +90,7 @@ namespace nDump.Workflow
 
                 var exporter = new SqlDataExporter(logger, filteringStrategy,
                                                    new CsvGenerator(logger, filteringStrategy, queryExecutor,
-                                                                    nDumpOptions.CsvDirectory));
+                                                                    nDumpOptions.CsvDirectory, nDumpOptions.Delimiter));
                 exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
             }
             catch (nDumpApplicationException ex)

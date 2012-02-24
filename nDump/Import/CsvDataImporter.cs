@@ -14,12 +14,14 @@ namespace nDump.Import
         private readonly ILogger _logger;
         private readonly QueryExecutor _queryExecutor;
         private readonly string _csvDirectory;
+        private readonly char _delimiter;
 
-        public CsvDataImporter(ILogger logger, QueryExecutor queryExecutor, string csvDirectory)
+        public CsvDataImporter(ILogger logger, QueryExecutor queryExecutor, string csvDirectory, char delimiter)
         {
             _logger = logger;
             _queryExecutor = queryExecutor;
             _csvDirectory = csvDirectory;
+            _delimiter = delimiter;
         }
 
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> dataSelects)
@@ -35,7 +37,7 @@ namespace nDump.Import
             _logger.Log("Deleting table data from target in reverse order:");
             foreach (var table in tableSelects)
             {
-                _logger.Log("     " + table.TableName);
+                _logger.Log("\t" + table.TableName);
                 _queryExecutor.ExecuteNonQueryStatement("delete from " + table.TableName);
             }
         }
@@ -48,10 +50,10 @@ namespace nDump.Import
                 if (table.DeleteOnly) continue;
                 _logger.Log("\t" + table.TableName);
                 var csvFile = Path.Combine(_csvDirectory, table.TableName + ".csv");
-                var reader = new CsvReader(File.OpenText(csvFile), true, '\t', '\"', '\"', '#',
+                var csvReader = new CsvReader(File.OpenText(csvFile), true, _delimiter, '\"', '\"', '#',
                                        ValueTrimmingOptions.UnquotedOnly);
                 var dataTable = new DataTable();
-                dataTable.Load(reader);
+                dataTable.Load(csvReader);
 
                 _queryExecutor.ExecuteBulkInsert(table.TableName, dataTable, table.HasIdentity);
                 _logger.Log("\t\tInserted " + dataTable.Rows.Count + " rows.");

@@ -47,7 +47,7 @@ namespace nDump.Integration
                                  sqlWriter, tableName, false));
             }
 
-            Assert.AreEqual("insert testTable (col1,col2) values\n('1','2')\n",sqlWriter.ToString());
+            Assert.AreEqual("insert testTable (col1,col2) values\n(N'1',N'2')\n",sqlWriter.ToString());
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace nDump.Integration
                 csvToSqlInsertConverter.Convert(new CsvTable(csvTextReader,
                                                              sqlWriter, tableName, false));
             }
-            Assert.AreEqual("insert testTable (col1,col2) values\n('1','2')\n,('3','4')\n",sqlWriter.ToString());
+            Assert.AreEqual("insert testTable (col1,col2) values\n(N'1',N'2')\n,(N'3',N'4')\n",sqlWriter.ToString());
         }
 
         public static int CountStringOccurrences(string text, string pattern)
