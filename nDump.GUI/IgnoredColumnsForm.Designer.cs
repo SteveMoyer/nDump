@@ -9,7 +9,7 @@ namespace nDump.GUI
     public partial class IgnoredColumnsForm : Form
     {
         private Panel panel1;
-        private Button CancelButton;
+        private new Button CancelButton;
         private Button OkButton;
         private Label label1;
         private Panel panel2;

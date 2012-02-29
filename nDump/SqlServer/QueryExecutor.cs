@@ -34,5 +34,23 @@ namespace nDump.SqlServer
                 return dsSelectResult;
             }
         }
+
+        public void ExecuteBulkInsert(string tableName, DataTable dataTable, bool keepIdentity)
+        {
+            var copyOptions = SqlBulkCopyOptions.TableLock;
+            copyOptions  |= keepIdentity ? SqlBulkCopyOptions.KeepIdentity : SqlBulkCopyOptions.Default;
+
+            using (var bulkCopy = new SqlBulkCopy(_connectionString, copyOptions))
+            {
+                bulkCopy.DestinationTableName = tableName;
+
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    bulkCopy.ColumnMappings.Add(column.ColumnName, column.ColumnName);
+                }
+               
+                bulkCopy.WriteToServer(dataTable);
+            }
+        }
     }
 }

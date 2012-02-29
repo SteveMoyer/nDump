@@ -18,7 +18,7 @@ namespace nDump.Unit
         public void ShouldQuoteSingleValue()
         {
             string escape = _valueEscapingStrategy.Escape("test");
-            Assert.AreEqual("'test'",escape);
+            Assert.AreEqual("N'test'",escape);
         }
 
         [Test]
@@ -46,14 +46,14 @@ namespace nDump.Unit
         public void ShouldReplaceSingleQuoteWithDoubleSingleQuote()
         {
             string escape = _valueEscapingStrategy.Escape("a'b");
-            Assert.AreEqual("'a''b'", escape);
+            Assert.AreEqual("N'a''b'", escape);
         }
 
         [Test]
         public void ShouldEscapeMultipleValues()
         {
             string[] escape = _valueEscapingStrategy.Escape(new string[]{"a'b","b"});
-            Assert.AreEqual(new []{"'a''b'","'b'"}, escape);
+            Assert.AreEqual(new []{"N'a''b'","N'b'"}, escape);
         }
     }
 }
