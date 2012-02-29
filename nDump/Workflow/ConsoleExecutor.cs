@@ -1,4 +1,5 @@
-﻿using nDump.Configuration;
+﻿using System;
+using nDump.Configuration;
 using nDump.Export;
 using nDump.Import;
 using nDump.Logging;
@@ -20,7 +21,7 @@ namespace nDump.Workflow
                 ImportIfSelected(nDumpOptions, logger, dataPlan);
                 BuklInsertIfSelected(nDumpOptions, logger, dataPlan);
             }
-            catch (nDumpApplicationException ex)
+            catch (Exception ex)
             {
                 logger.Log(ex);
                 return -1;
@@ -33,14 +34,16 @@ namespace nDump.Workflow
             if (!nDumpOptions.BulkInsert) return;
             try
             {
+
+
                 var importer = new CsvDataImporter(logger,
                                                    new QueryExecutor(nDumpOptions.TargetConnectionString),
                                                    nDumpOptions.CsvDirectory, nDumpOptions.Delimiter);
                 importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
             }
-            catch (nDumpApplicationException ex)
+            catch (Exception ex)
             {
-                throw new nDumpApplicationException("Import Of Sql Failed.",ex);
+                throw new nDumpApplicationException("Bulk Import Of Sql Failed.", ex);
             }
         }
 
@@ -54,11 +57,13 @@ namespace nDump.Workflow
                                                    new IncrementingNumberSqlScriptFileStrategy(nDumpOptions.SqlDirectory));
                 importer.RemoveDataAndImportFromSqlFiles(dataPlan.DataSelects);
             }
-            catch (nDumpApplicationException ex)
+            catch (Exception ex)
             {
                 throw new nDumpApplicationException("Import Of Sql Failed.",ex);
             }
         }
+
+      
 
         private void TransformIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
         {
@@ -70,7 +75,7 @@ namespace nDump.Workflow
                                                       logger, nDumpOptions.Delimiter);
                 transformer.ConvertCsvToSql(dataPlan.DataSelects);
             }
-            catch (nDumpApplicationException ex)
+            catch (Exception ex)
             {
                 throw new nDumpApplicationException("Export To Csv Failed.", ex);
             }
@@ -93,7 +98,7 @@ namespace nDump.Workflow
                                                                     nDumpOptions.CsvDirectory, nDumpOptions.Delimiter));
                 exporter.ExportToCsv(dataPlan.SetupScripts, dataPlan.DataSelects);
             }
-            catch (nDumpApplicationException ex)
+            catch (Exception ex)
             {
                 throw new nDumpApplicationException("Export To Csv Failed.", ex);
             }

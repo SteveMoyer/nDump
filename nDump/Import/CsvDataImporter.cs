@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -26,8 +27,29 @@ namespace nDump.Import
 
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> dataSelects)
         {
+            ThrowExceptionIfInvalidDataPlan(dataSelects);
             DeleteDataFromAllDestinationTables(dataSelects);
             InsertDataIntoDestinationTables(dataSelects);
+        }
+
+        private void ThrowExceptionIfInvalidDataPlan(List<SqlTableSelect> tables)
+        {
+            var missingTables = new List<string>();
+            foreach (var table in tables)
+            {
+                var csvFile = Path.Combine(_csvDirectory, table.TableName + ".csv");
+                if (!File.Exists(csvFile))
+                    missingTables.Add(table.TableName);
+            }
+
+            if (missingTables.Count == 0) return;
+
+            var errorMessage =
+                string.Format(
+                    "The following tables have entries in the dataplan, but the corresponding CSVs are not present in {0}:\n{1}\n" +
+                    "Either remove the entries from the dataplan xml, or add the missing CSVs.\n",
+                    _csvDirectory, string.Join("\n", missingTables));
+            throw new Exception(errorMessage);
         }
 
         public void DeleteDataFromAllDestinationTables(List<SqlTableSelect> sqlTableSelects)
