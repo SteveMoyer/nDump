@@ -27,12 +27,13 @@ namespace nDump.Import
 
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> dataSelects)
         {
-            ThrowExceptionIfInvalidDataPlan(dataSelects);
+            var tablesToImport = dataSelects.Where(t => !t.DeleteOnly).ToList();
+            ThrowExceptionIfInvalidDataPlan(tablesToImport);
             DeleteDataFromAllDestinationTables(dataSelects);
-            InsertDataIntoDestinationTables(dataSelects);
+            InsertDataIntoDestinationTables(tablesToImport);
         }
 
-        private void ThrowExceptionIfInvalidDataPlan(List<SqlTableSelect> tables)
+        private void ThrowExceptionIfInvalidDataPlan(IEnumerable<SqlTableSelect> tables)
         {
             var missingTables = new List<string>();
             foreach (var table in tables)
