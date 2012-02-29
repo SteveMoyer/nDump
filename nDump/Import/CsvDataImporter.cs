@@ -27,12 +27,13 @@ namespace nDump.Import
 
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> dataSelects)
         {
-            ThrowExceptionIfInvalidDataPlan(dataSelects);
+            var tablesToImport = dataSelects.Where(t => !t.DeleteOnly).ToList();
+            ThrowExceptionIfInvalidDataPlan(tablesToImport);
             DeleteDataFromAllDestinationTables(dataSelects);
-            InsertDataIntoDestinationTables(dataSelects);
+            InsertDataIntoDestinationTables(tablesToImport);
         }
 
-        private void ThrowExceptionIfInvalidDataPlan(List<SqlTableSelect> tables)
+        private void ThrowExceptionIfInvalidDataPlan(IEnumerable<SqlTableSelect> tables)
         {
             var missingTables = new List<string>();
             foreach (var table in tables)
@@ -64,12 +65,11 @@ namespace nDump.Import
             }
         }
 
-        public void InsertDataIntoDestinationTables(List<SqlTableSelect> selects)
+        public void InsertDataIntoDestinationTables(List<SqlTableSelect> tablesToProcess)
         {
             _logger.Log("Adding Table data to target:");
-            foreach (var table in selects.ToList())
+            foreach (var table in tablesToProcess)
             {
-                if (table.DeleteOnly) continue;
                 _logger.Log("\t" + table.TableName);
                 var csvFile = Path.Combine(_csvDirectory, table.TableName + ".csv");
                 var csvReader = new CsvReader(File.OpenText(csvFile), true, _delimiter, '\"', '\"', '#',
