@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Export\CsvGenerator.cs" />
+    <Compile Include="Import\CsvDataImporter.cs" />
     <Compile Include="Transformation\Escaping\ColumnHeaderKeywordEscapingStrategy.cs" />
     <Compile Include="Workflow\ConsoleExecutor.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />

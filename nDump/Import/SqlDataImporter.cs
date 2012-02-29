@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using nDump.Logging;
 using nDump.Model;
@@ -29,7 +29,7 @@ namespace nDump.Import
             _logger.Log("Deleting table data from target in reverse order:");
             foreach (var table in tableSelects)
             {
-                _logger.Log("     " + table.TableName);
+                _logger.Log("\t" + table.TableName);
                 _queryExecutor.ExecuteNonQueryStatement("delete from " + table.TableName);
             }
         }
@@ -40,7 +40,7 @@ namespace nDump.Import
             foreach (var table in selects.ToList())
             {
                 if (table.DeleteOnly) continue;
-                _logger.Log("     " + table.TableName);
+                _logger.Log("\t" + table.TableName);
                 RunAllScriptFilesFor(table);
             }
         }
@@ -64,15 +64,8 @@ namespace nDump.Import
 
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> selects)
         {
-            try
-            {
-                DeleteDataFromAllDestinationTables(selects);
-                InsertDataIntoDesinationTables(selects);
-            }
-            catch (SqlException ex)
-            {
-                throw new nDumpApplicationException(ex.Message, ex);
-            }
+            DeleteDataFromAllDestinationTables(selects);
+            InsertDataIntoDesinationTables(selects);
         }
     }
 }
