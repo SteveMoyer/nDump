@@ -74,13 +74,28 @@ namespace nDump.Import
                 var csvFile = Path.Combine(_csvDirectory, table.TableName + ".csv");
                 var csvReader = new CsvReader(File.OpenText(csvFile), true, _delimiter, '\"', '\"', '#',
                                        ValueTrimmingOptions.UnquotedOnly);
-                var dataTable = new DataTable();
-                dataTable.Load(csvReader);
 
+                var dataTable = LoadData(csvReader, table.TableName);
                 _queryExecutor.ExecuteBulkInsert(table.TableName, dataTable, table.HasIdentity);
                 _logger.Log("\t\tInserted " + dataTable.Rows.Count + " rows.");
 
             }
+        }
+
+        private DataTable LoadData(CsvReader csvReader, string tableName)
+        {
+            var dataTable = GetDataTableWithColumnDataTypesSet(csvReader, tableName);
+            dataTable.Load(csvReader);
+
+            return dataTable;
+        }
+
+        private DataTable GetDataTableWithColumnDataTypesSet(CsvReader csvReader, string tableName)
+        {
+            var columnList = csvReader.GetFieldHeaders().Select(columnName => "[" + columnName + "]");
+            var query = string.Format("SET FMTONLY ON; SELECT {0} FROM {1}; SET FMTONLY OFF;", string.Join(",", columnList), tableName);
+            var dataTable = _queryExecutor.ExecuteSelectStatement(query);
+            return dataTable;
         }
     }
 }
