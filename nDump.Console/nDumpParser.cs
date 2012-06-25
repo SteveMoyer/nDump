@@ -9,7 +9,7 @@ namespace nDump.Console
         public nDumpOptions Parse(string[] args)
         {
             var position = 0;
-            bool export = false, import = false, transform = false, bulkImport = false;
+            bool export = false, import = false, transform = false, bulkImport = false, bulkDelete = false, insert = false;
             var file = string.Empty;
             var csvDirectory = string.Empty;
             var sqlDirectory = string.Empty;
@@ -35,19 +35,31 @@ namespace nDump.Console
                         bulkImport = false;
                         position++;
                         break;
+                    case "-bd":
+                        bulkDelete = true;
+                        position++;
+                        break;
+                    case "-in":
+                        insert = true;
+                        if (import || bulkImport)
+                        {
+                            throw new nDumpConfigurationException("Cannot use insert and bulk import or import at same time");
+                        }
+                        position++;
+                        break;
                     case "-bi":
                         bulkImport = true;
-                        if (import)
+                        if (import || insert)
                         {
-                            throw new nDumpConfigurationException("Cannot use import and bulk import at same time");
+                            throw new nDumpConfigurationException("Cannot use bulk import and insert or import at same time");
                         }
                         position++;
                         break;
                     case "-i":
                         import = true;
-                        if (bulkImport)
+                        if (bulkImport || insert)
                         {
-                            throw new nDumpConfigurationException("Cannot use import and bulk import at same time");
+                            throw new nDumpConfigurationException("Cannot use import and bulk import or insert at same time");
                         }
                         position++;
                         break;
@@ -92,7 +104,7 @@ namespace nDump.Console
                 return ndumpOptions;
             }
             return new nDumpOptions(export, transform, import, file, csvDirectory, sqlDirectory, sourceConnection,
-                                    targetConnection, applyFilters, bulkImport);
+                                    targetConnection, applyFilters, bulkImport, bulkDelete, insert);
         }
     }
 }
