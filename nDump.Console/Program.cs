@@ -15,7 +15,10 @@ namespace nDump.Console
     -o    supply and options file to populate
   run options:  
     -e      Export (requires -sourceconnection and -csv)
-    -i      Import (requires -sql and -targetconnection)
+    -i      Import (requires -sql and -targetconnection). Cannot use import and bulk import or insert at same time.
+    -in     Insert (requires -sql and -targetconnection). Cannot use bulk import and insert or import at same time.
+    -bi     Bulk Import (requires -sql and -targetconnection). Cannot use bulk import and insert or import at same time.
+    -bd     Bulk Delete (requires -sql and -targetconnection)
     -t      transform (requires -csv and -sql)
     -csv    csv file directory
     -sql    sql file directory

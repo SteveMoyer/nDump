@@ -25,6 +25,20 @@ namespace nDump.Import
             _delimiter = delimiter;
         }
 
+        public void RemoveDataFromSqlFiles(List<SqlTableSelect> dataSelects)
+        {
+            var tablesToImport = dataSelects.Where(t => !t.DeleteOnly).ToList();
+            ThrowExceptionIfInvalidDataPlan(tablesToImport);
+            DeleteDataFromAllDestinationTables(dataSelects);
+        }
+
+        public void InsertDataFromSqlFiles(List<SqlTableSelect> dataSelects)
+        {
+            var tablesToImport = dataSelects.Where(t => !t.DeleteOnly).ToList();
+            ThrowExceptionIfInvalidDataPlan(tablesToImport);
+            InsertDataIntoDestinationTables(tablesToImport);
+        }
+
         public void RemoveDataAndImportFromSqlFiles(List<SqlTableSelect> dataSelects)
         {
             var tablesToImport = dataSelects.Where(t => !t.DeleteOnly).ToList();

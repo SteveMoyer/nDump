@@ -27,7 +27,7 @@ namespace nDump.GUI
 
         private nDumpOptions CreateOptionsFromForm()
         {
-            return new nDumpOptions(ExportCheckBox.Checked,TransformCheckBox.Checked,ImportCheckBox.Checked,null,csvDirTextBox.Text,SqlScriptDirTextBox.Text,exportsqlConnection.ConnectionString,ImportSqlConnection.ConnectionString,ApplyFilterCheckBox.Checked,false);
+            return new nDumpOptions(ExportCheckBox.Checked,TransformCheckBox.Checked,ImportCheckBox.Checked,null,csvDirTextBox.Text,SqlScriptDirTextBox.Text,exportsqlConnection.ConnectionString,ImportSqlConnection.ConnectionString,ApplyFilterCheckBox.Checked,false,false, false);
         }
 
         private void LoadOptionsButtonClick(object sender, EventArgs e)

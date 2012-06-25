@@ -20,6 +20,8 @@ namespace nDump.Workflow
                 TransformIfSelected(nDumpOptions, logger, dataPlan);
                 ImportIfSelected(nDumpOptions, logger, dataPlan);
                 BuklInsertIfSelected(nDumpOptions, logger, dataPlan);
+                BulkDeleteIfSelected(nDumpOptions, logger, dataPlan);
+                InsertIfSelected(nDumpOptions, logger, dataPlan);
             }
             catch (Exception ex)
             {
@@ -47,6 +49,42 @@ namespace nDump.Workflow
             }
         }
 
+        private void InsertIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
+        {
+            if (!nDumpOptions.Insert) return;
+            try
+            {
+
+
+                var importer = new CsvDataImporter(logger,
+                                                   new QueryExecutor(nDumpOptions.TargetConnectionString),
+                                                   nDumpOptions.CsvDirectory, nDumpOptions.Delimiter);
+                importer.InsertDataFromSqlFiles(dataPlan.DataSelects);
+            }
+            catch (Exception ex)
+            {
+                throw new nDumpApplicationException("Insert Data Of Sql Failed.", ex);
+            }
+        }
+
+        private void BulkDeleteIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
+        {
+            if (!nDumpOptions.BulkDelete) return;
+            try
+            {
+
+
+                var importer = new CsvDataImporter(logger,
+                                                   new QueryExecutor(nDumpOptions.TargetConnectionString),
+                                                   nDumpOptions.CsvDirectory, nDumpOptions.Delimiter);
+                importer.RemoveDataFromSqlFiles(dataPlan.DataSelects);
+            }
+            catch (Exception ex)
+            {
+                throw new nDumpApplicationException("Bulk Delete Of Sql Failed.", ex);
+            }
+        }
+        
         private void ImportIfSelected(nDumpOptions nDumpOptions, ILogger logger, DataPlan dataPlan)
         {
             if (!nDumpOptions.Import) return;
