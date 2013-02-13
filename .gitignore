@@ -8,3 +8,5 @@ TestResult.xml
 /coverage
 **/*.swp
 **/*~
+test-results
+*.userprefs
